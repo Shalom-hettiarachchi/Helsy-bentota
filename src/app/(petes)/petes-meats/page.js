@@ -8,13 +8,15 @@ import PetesHeader from './PetesHeader'
 import { products } from '@/data/products'
 import { mapEmbedUrl, petes } from '@/data/site'
 import styles from './petes.module.css'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata = {
+export const metadata = pageMeta({
   title: "Pete's Meats – Bentota Artisan Meat Products",
   description:
     "Pete's Meats makes British-style sausages, bacon, ham and butter-pastry pies by hand in Bentota, Sri Lanka. Call or WhatsApp to order – we deliver.",
-  alternates: { canonical: '/petes-meats' },
-}
+  path: '/petes-meats',
+  image: { url: '/images/banners/petesmeat-banner.webp', width: 2560, height: 811, alt: "Pete's Meats products" },
+})
 
 const showcase = products.filter((p) => p.onPetesPage !== false)
 
@@ -38,13 +40,16 @@ export default function PetesMeatsPage() {
             className={styles.heroBg}
           />
           <div className={styles.heroContent}>
-            <Img
-              src="/images/logo/petes-meats-logo-banner.png"
-              alt="Pete's Meats – just like Mum makes"
-              sizes="(max-width: 900px) 88vw, 760px"
-              preload
-              className={styles.heroLogo}
-            />
+            <h1 className={styles.heroHeading}>
+              <Img
+                src="/images/logo/petes-meats-logo-banner.png"
+                alt="Pete's Meats – just like Mum makes"
+                sizes="(max-width: 900px) 88vw, 760px"
+                preload
+                className={styles.heroLogo}
+              />
+              <span className="sr-only"> – handmade British sausages, bacon and pies from Bentota</span>
+            </h1>
             <div className={`btn-row ${styles.heroActions}`}>
               <Link href="/products" className="btn btn-light">
                 Shop Online

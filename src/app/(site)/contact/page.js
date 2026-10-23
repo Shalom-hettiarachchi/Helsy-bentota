@@ -4,13 +4,15 @@ import SocialLinks from '@/components/SocialLinks'
 import ContactForm from './ContactForm'
 import { mapEmbedUrl } from '@/data/site'
 import styles from './contact.module.css'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata = {
+export const metadata = pageMeta({
   title: 'Contact Us',
   description:
     'Get in touch with The Helsy Bentota about stays, care services or dining – address, phone, email, opening hours and a map to find us in Bentota.',
-  alternates: { canonical: '/contact/' },
-}
+  path: '/contact',
+  image: { url: '/images/banners/contactus-banner.webp', width: 2560, height: 922, alt: 'The Helsy Bentota' },
+})
 
 export default function ContactPage() {
   return (

@@ -388,3 +388,9 @@
   --btn-fg: var(--white);
   --btn-border: var(--black);
 }
+
+.heroHeading {
+  margin: 0;
+  font-size: inherit;
+  line-height: 0;
+}

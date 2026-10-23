@@ -5,12 +5,15 @@ import Img from '@/components/Img'
 import ReservationForm from './ReservationForm'
 import { helsy } from '@/data/site'
 import styles from './reservation.module.css'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata = {
+export const metadata = pageMeta({
   title: 'Reservations',
-  description: 'Book a table at The Helsy Bentota for an authentic British dining experience in Bentota, Sri Lanka.',
-  alternates: { canonical: '/reservation' },
-}
+  description:
+    'Book a table at The Helsy Bentota for an authentic British dining experience in Bentota, Sri Lanka.',
+  path: '/reservation',
+  image: { url: '/images/banners/reservation-banner.webp', width: 2560, height: 830, alt: 'Dining at The Helsy Bentota' },
+})
 
 const photos = [
   { src: '/images/images/single1.webp', alt: 'Chef preparing food' },

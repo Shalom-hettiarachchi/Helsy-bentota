@@ -3,13 +3,15 @@ import PageHero from '@/components/PageHero'
 import ProductBrowser from './ProductBrowser'
 import { petes } from '@/data/site'
 import styles from './products.module.css'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata = {
+export const metadata = pageMeta({
   title: "Shop Pete's Meats",
   description:
     "Order Pete's Meats online: Cumberland sausages, smoked bacon, butter-pastry pies, burgers and more, handmade in Bentota.",
-  alternates: { canonical: '/products' },
-}
+  path: '/products',
+  image: { url: '/images/banners/petesmeat-banner.webp', width: 2560, height: 811, alt: "Pete's Meats products" },
+})
 
 export default function ProductsPage() {
   return (

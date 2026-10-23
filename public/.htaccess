@@ -8,6 +8,10 @@ ErrorDocument 404 /404.html
 
   # (Turn on "Force HTTPS" in Hostinger hPanel -> Security -> SSL)
 
+  # One address for search engines: thehelsybentota.com -> www.thehelsybentota.com
+  RewriteCond %{HTTP_HOST} ^thehelsybentota\.com$ [NC]
+  RewriteRule ^(.*)$ https://www.thehelsybentota.com/$1 [R=301,L]
+
   # Old PHP site addresses -> new pages (letter case matters)
   RewriteRule ^index(\.php)?$ / [R=301,L]
   RewriteRule ^Reservation(\.php)?$ /reservation/ [R=301,L]

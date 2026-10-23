@@ -1,5 +1,6 @@
 import { Maname, Poppins } from 'next/font/google'
-import { helsy, siteUrl } from '@/data/site'
+import { googleSiteVerification, helsy, siteUrl } from '@/data/site'
+import { defaultImage } from '@/lib/seo'
 import './globals.css'
 
 const poppins = Poppins({
@@ -23,14 +24,15 @@ export const metadata = {
     template: '%s | The Helsy Bentota',
   },
   description:
-    'Welcome to The Helsy Bentota, a British-themed restaurant offering authentic meats, private dining, and luxury homestay experiences in Sri Lanka.',
-  keywords: ['Helsy', 'Helsy Bentota', 'British Restaurant', 'Private Dining', "Pete's Meats", 'Homestay', 'Bentota', 'Sri Lanka'],
+    'The Helsy Bentota: a self-contained holiday suite, residential, dementia and respite care, and homemade British food on our family farm in Bentota, Sri Lanka.',
+  applicationName: helsy.name,
+  ...(googleSiteVerification ? { verification: { google: googleSiteVerification } } : {}),
   icons: { icon: '/images/logo/helsy-icon.svg' },
   openGraph: {
     type: 'website',
     siteName: helsy.name,
     locale: 'en_GB',
-    images: [{ url: '/images/banners/home-banner.webp', width: 2560, height: 1278, alt: 'Dining room at The Helsy Bentota' }],
+    images: [defaultImage],
   },
   twitter: { card: 'summary_large_image' },
 }
