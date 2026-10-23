@@ -6,10 +6,11 @@ import { formatMoney, formatShort } from '@/lib/dates'
 import { bookingPayload, useAdmin } from './context'
 import { Empty, Loading, StatusBadge } from './ui'
 import BookingEditor from './BookingEditor'
+import DashboardCharts from './DashboardCharts'
 import styles from './admin.module.css'
 
 export default function Dashboard() {
-  const { call, notify } = useAdmin()
+  const { call, notify, settings } = useAdmin()
   const [data, setData] = useState(null)
   const [editing, setEditing] = useState(null)
   const [busy, setBusy] = useState(0)
@@ -98,6 +99,8 @@ export default function Dashboard() {
           </ul>
         )}
       </section>
+
+      <DashboardCharts charts={data.charts} currency={settings?.currency} />
 
       <section className={styles.card}>
         <h2 className={styles.cardTitle}>Upcoming stays</h2>
