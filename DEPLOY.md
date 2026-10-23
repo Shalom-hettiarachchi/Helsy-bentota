@@ -20,11 +20,7 @@ This creates the `out/` folder – that folder **is** the website.
 
 1. hPanel → **Files → File Manager** → open `public_html`.
 2. Select everything → **Compress** → download the zip as a backup.
-3. **Keep Google's verification:** before deleting, look for a file named like
-   `google1234abcd.html` in `public_html`, or a
-   `<meta name="google-site-verification" content="…">` line in the old
-   `index.php`/`header.php`. Save it – step 9 needs it.
-4. Delete the old files from `public_html`.
+3. Delete the old files from `public_html`.
 
 > ⚠️ The old site's PHP files contain the Gmail app password in plain text.
 > After deleting them, **revoke that app password** in the Google account
@@ -99,13 +95,10 @@ If emails don't arrive, look at `helsy-data/error.log` (one level above
 
 Keeps the site's Google history and tells Google about the new pages.
 
-1. **Verification** (from step 2):
-   - a `google….html` file → copy it into the `public/` folder of the project,
-     run `npm run build` again and re-upload; or
-   - a meta tag → paste its `content` value into `googleSiteVerification` in
-     `src/data/site.js`, rebuild and re-upload.
-   - Found neither? In Search Console choose **Add property → URL prefix**,
-     pick **HTML tag**, and use that code the same way.
+1. **Verification** is already done: the old site's file
+   `googled81ec59a70fe429b.html` is included in the new site, so the existing
+   Search Console property keeps working. Check it opens at
+   `https://www.thehelsybentota.com/googled81ec59a70fe429b.html` after upload.
 2. In [Search Console](https://search.google.com/search-console) open the
    property for `https://www.thehelsybentota.com/` → **Sitemaps** → enter
    `sitemap.xml` → **Submit**.

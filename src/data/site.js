@@ -4,10 +4,9 @@
 
 export const siteUrl = 'https://www.thehelsybentota.com'
 
-// Google Search Console: paste the code from the old site's
-// <meta name="google-site-verification" content="…"> tag here (just the content
-// part). Or, if Google gave you a file like google1234abcd.html, put that file
-// in the public/ folder instead and leave this empty.
+// Google Search Console is verified with public/googled81ec59a70fe429b.html
+// (kept from the old site). Only fill this in if Google gives you a meta-tag
+// code instead: paste just the content="…" part.
 export const googleSiteVerification = ''
 
 // Pete's Meats has its own website; nav links open it in a new tab
