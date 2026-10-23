@@ -32,6 +32,12 @@ export async function api(path, { method = 'GET', body, csrf, signal } = {}) {
   } catch {
     // not JSON (e.g. PHP not running)
   }
+  if (res.ok && !data) {
+    throw new ApiError(
+      'The server did not send a proper reply. PHP may not be running for /api, or it is older than PHP 8.1.',
+      res.status,
+    )
+  }
   if (!res.ok || !data || data.ok === false) {
     throw new ApiError(data?.error || `The server returned an error (${res.status}). Please try again.`, res.status, data)
   }

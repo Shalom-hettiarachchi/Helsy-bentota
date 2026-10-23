@@ -10,6 +10,9 @@ export default function config(phase) {
 
   return {
     trailingSlash: true,
+    // Next 16 blocks dev scripts on 127.0.0.1 unless it is listed here, which
+    // leaves pages (like /admin) stuck on "Loading…".
+    allowedDevOrigins: ['127.0.0.1', 'localhost'],
     images: { unoptimized: true },
     ...(dev
       ? {
