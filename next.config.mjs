@@ -12,7 +12,13 @@ export default function config(phase) {
     trailingSlash: true,
     images: { unoptimized: true },
     ...(dev
-      ? { rewrites: async () => [{ source: '/api/:path*', destination: `${apiOrigin}/api/:path*` }] }
+      ? {
+          // beforeFiles: the PHP files also sit in public/api, and Next would
+          // otherwise serve their source code instead of forwarding to PHP.
+          rewrites: async () => ({
+            beforeFiles: [{ source: '/api/:path*', destination: `${apiOrigin}/api/:path*` }],
+          }),
+        }
       : { output: 'export' }),
   }
 }
