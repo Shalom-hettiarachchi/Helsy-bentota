@@ -1,7 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
-import { LuTrash2, LuUserPlus } from 'react-icons/lu'
+import { useState } from 'react'
 import { useAdmin } from './context'
 import styles from './admin.module.css'
 
@@ -12,8 +11,6 @@ export default function SettingsEditor() {
   return (
     <div className={styles.stack}>
       <GeneralSettings />
-      <PasswordForm />
-      <AdminUsers />
     </div>
   )
 }
@@ -113,144 +110,5 @@ function GeneralSettings() {
         </button>
       </div>
     </form>
-  )
-}
-
-function PasswordForm() {
-  const { call, notify } = useAdmin()
-  const [busy, setBusy] = useState(false)
-
-  async function submit(e) {
-    e.preventDefault()
-    const form = e.currentTarget
-    const d = Object.fromEntries(new FormData(form).entries())
-    if (d.password !== d.password2) return notify('The new passwords don’t match', 'error')
-    setBusy(true)
-    try {
-      await call('password_change', { body: { current: d.current, password: d.password } })
-      form.reset()
-      notify('Password changed')
-    } catch (err) {
-      notify(err.message, 'error')
-    } finally {
-      setBusy(false)
-    }
-  }
-
-  return (
-    <form className={styles.card} onSubmit={submit}>
-      <h2 className={styles.cardTitle}>Change your password</h2>
-      <div className={styles.grid3}>
-        <label className="field">
-          <span className="field-label">Current password</span>
-          <input className="input" name="current" type="password" required autoComplete="current-password" />
-        </label>
-        <label className="field">
-          <span className="field-label">New password (10+ characters)</span>
-          <input className="input" name="password" type="password" required minLength={10} autoComplete="new-password" />
-        </label>
-        <label className="field">
-          <span className="field-label">Repeat new password</span>
-          <input className="input" name="password2" type="password" required minLength={10} autoComplete="new-password" />
-        </label>
-      </div>
-      <div className={styles.saveBar}>
-        <button type="submit" className="btn btn-outline" disabled={busy}>
-          Change password
-        </button>
-      </div>
-    </form>
-  )
-}
-
-function AdminUsers() {
-  const { call, notify } = useAdmin()
-  const [list, setList] = useState([])
-  const [adding, setAdding] = useState(false)
-
-  const load = useCallback(() => {
-    call('admins')
-      .then((d) => setList(d.admins))
-      .catch((err) => notify(err.message, 'error'))
-  }, [call, notify])
-  useEffect(load, [load])
-
-  async function add(e) {
-    e.preventDefault()
-    const form = e.currentTarget
-    try {
-      const d = await call('admin_add', { body: Object.fromEntries(new FormData(form).entries()) })
-      setList(d.admins)
-      setAdding(false)
-      notify('Admin added – share the password with them privately')
-    } catch (err) {
-      notify(err.message, 'error')
-    }
-  }
-
-  async function remove(a) {
-    if (!window.confirm(`Remove ${a.name} (${a.email}) as an admin?`)) return
-    try {
-      const d = await call('admin_delete', { body: { id: a.id } })
-      setList(d.admins)
-    } catch (err) {
-      notify(err.message, 'error')
-    }
-  }
-
-  return (
-    <section className={styles.card}>
-      <h2 className={styles.cardTitle}>People who can sign in</h2>
-      <ul className={styles.rows}>
-        {list.map((a) => (
-          <li key={a.id} className={styles.row}>
-            <div className={styles.rowMain}>
-              <strong>
-                {a.name}
-                {a.isYou ? ' (you)' : ''}
-              </strong>
-              <span className={styles.muted}>
-                {a.email} · last sign-in {a.lastLogin ? a.lastLogin.slice(0, 16) : 'never'}
-              </span>
-            </div>
-            {!a.isYou && (
-              <button type="button" className={styles.iconBtn} onClick={() => remove(a)} aria-label={`Remove ${a.name}`}>
-                <LuTrash2 />
-              </button>
-            )}
-          </li>
-        ))}
-      </ul>
-      {adding ? (
-        <form className={styles.form} onSubmit={add}>
-          <div className={styles.grid3}>
-            <label className="field">
-              <span className="field-label">Name</span>
-              <input className="input" name="name" required />
-            </label>
-            <label className="field">
-              <span className="field-label">Email</span>
-              <input className="input" name="email" type="email" required />
-            </label>
-            <label className="field">
-              <span className="field-label">Password (10+ characters)</span>
-              <input className="input" name="password" type="password" minLength={10} required autoComplete="new-password" />
-            </label>
-          </div>
-          <div className={styles.saveBar}>
-            <button type="button" className="btn btn-outline" onClick={() => setAdding(false)}>
-              Cancel
-            </button>
-            <button type="submit" className="btn btn-light">
-              Add admin
-            </button>
-          </div>
-        </form>
-      ) : (
-        <button type="button" className={styles.linkBtn} onClick={() => setAdding(true)}>
-          <LuUserPlus aria-hidden="true" /> Add another admin
-        </button>
-      )}
-    </section>
   )
 }

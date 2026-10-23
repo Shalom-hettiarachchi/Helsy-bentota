@@ -8,9 +8,11 @@ import {
   LuExternalLink,
   LuHotel,
   LuInbox,
+  LuKeyRound,
   LuLayoutDashboard,
   LuLogOut,
   LuSettings,
+  LuUsers,
   LuUtensils,
 } from 'react-icons/lu'
 import { api, ApiError } from '@/lib/api'
@@ -23,6 +25,9 @@ import RoomsEditor from './RoomsEditor'
 import MenuEditor from './MenuEditor'
 import Messages from './Messages'
 import SettingsEditor from './SettingsEditor'
+import AdminUsers from './AdminUsers'
+import ChangePassword from './ChangePassword'
+import { PasswordInput } from './ui'
 import styles from './admin.module.css'
 
 const SECTIONS = [
@@ -33,6 +38,8 @@ const SECTIONS = [
   { id: 'menu', label: 'Menu', Icon: LuUtensils, Comp: MenuEditor },
   { id: 'messages', label: 'Messages', Icon: LuInbox, Comp: Messages },
   { id: 'settings', label: 'Settings', Icon: LuSettings, Comp: SettingsEditor },
+  { id: 'admins', label: 'Admins', Icon: LuUsers, Comp: AdminUsers },
+  { id: 'password', label: 'Change password', Icon: LuKeyRound, Comp: ChangePassword },
 ]
 
 function useHashSection() {
@@ -237,18 +244,18 @@ function AuthScreen({ me, onDone }) {
         </label>
         <label className="field">
           <span className="field-label">Password{setup ? ' (at least 10 characters)' : ''}</span>
-          <input className="input" name="password" type="password" required minLength={setup ? 10 : undefined} autoComplete={setup ? 'new-password' : 'current-password'} />
+          <PasswordInput name="password" required minLength={setup ? 10 : undefined} autoComplete={setup ? 'new-password' : 'current-password'} />
         </label>
         {setup && (
           <label className="field">
             <span className="field-label">Repeat password</span>
-            <input className="input" name="password2" type="password" required autoComplete="new-password" />
+            <PasswordInput name="password2" required autoComplete="new-password" />
           </label>
         )}
         {me.setupNeedsKey && (
           <label className="field">
             <span className="field-label">Setup key (from helsy-config.php on the server)</span>
-            <input className="input" name="setupKey" type="password" required autoComplete="off" />
+            <PasswordInput name="setupKey" required autoComplete="off" />
           </label>
         )}
         {error && (

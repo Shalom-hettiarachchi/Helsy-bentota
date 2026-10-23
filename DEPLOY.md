@@ -63,7 +63,7 @@ section of the config. Tables are created automatically.
    **setup key** from step 4.
 3. You're signed in. You can now delete the `setup_key` line from the config.
 
-Add other people (e.g. Peter) in **Admin → Settings → People who can sign in**.
+Add other people (e.g. Peter) in **Admin → Admins**.
 
 ## 6. Check the settings
 

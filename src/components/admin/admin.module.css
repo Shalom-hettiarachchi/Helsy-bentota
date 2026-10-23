@@ -1103,3 +1103,45 @@ button.rowMain:hover strong {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+
+/* Password box with show / hide eye */
+.passwordWrap {
+  position: relative;
+  display: block;
+}
+
+.passwordWrap input {
+  padding-right: 52px;
+}
+
+.passwordEye {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  color: var(--text-soft);
+  background: none;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.passwordEye:hover,
+.passwordEye:focus-visible {
+  color: var(--text);
+}
+
+.passwordEye:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.passwordEye svg {
+  width: 20px;
+  height: 20px;
+}
