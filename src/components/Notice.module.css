@@ -1,0 +1,54 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  animation: fade 0.3s var(--ease) both;
+}
+
+.box {
+  width: 100%;
+  max-width: 420px;
+  padding: 38px 28px 30px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  animation: fade-up 0.45s var(--ease) both;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  color: var(--gold);
+}
+
+.box h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.box p {
+  color: var(--text-soft);
+  margin-bottom: 26px;
+}
+
+.box :global(.btn) {
+  min-width: 160px;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}

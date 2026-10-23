@@ -1,0 +1,373 @@
+.page {
+  --header-h: 64px;
+}
+
+@media (min-width: 1100px) {
+  .page {
+    --header-h: 76px;
+  }
+}
+
+/* Header */
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;
+  height: var(--header-h);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.4s var(--ease),
+    border-color 0.4s var(--ease);
+}
+
+.headerSolid {
+  background: rgba(10, 10, 10, 0.86);
+  backdrop-filter: saturate(140%) blur(14px);
+  border-bottom-color: var(--line);
+}
+
+.headerInner {
+  height: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+@media (min-width: 1100px) {
+  .logo img {
+    height: 52px;
+  }
+}
+
+.nav {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  .nav {
+    display: flex;
+    gap: 36px;
+    margin-left: auto;
+    margin-right: 12px;
+  }
+  .nav a {
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav a:hover {
+    color: var(--gold);
+  }
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 10px;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.phone span {
+  display: none;
+}
+
+@media (min-width: 760px) {
+  .phone span {
+    display: inline;
+  }
+  .phone {
+    padding-right: 16px;
+    margin-right: 6px;
+    border-right: 1px solid var(--line-strong);
+  }
+}
+
+.phone svg {
+  font-size: 18px;
+}
+
+.iconLink {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 44px;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.iconLink:hover {
+  color: var(--gold);
+}
+
+.orderBtn {
+  min-height: 40px;
+  padding: 0 18px;
+  margin-left: 8px;
+  font-size: 0.72rem;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: min(92svh, 860px);
+  display: grid;
+  place-items: center;
+  padding: calc(var(--header-h) + 32px) var(--gutter) 64px;
+  text-align: center;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at center, rgba(15, 16, 16, 0.62), rgba(15, 16, 16, 0.9) 70%),
+    linear-gradient(to bottom, rgba(15, 16, 16, 0) 70%, var(--bg));
+}
+
+.heroBg {
+  z-index: -2;
+  object-fit: cover;
+  animation: settle 16s var(--ease) both;
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fade-up 1.1s var(--ease) 0.1s both;
+}
+
+.heroLogo {
+  width: min(760px, 88vw);
+  height: auto;
+}
+
+.heroActions {
+  justify-content: center;
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+@media (max-width: 420px) {
+  .heroActions {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+/* Info strip */
+.strip {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  text-align: center;
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  font-weight: 400;
+}
+
+.strip li {
+  flex: 1 1 260px;
+  padding: 18px 24px;
+  border-top: 1px solid var(--line);
+}
+
+.strip a {
+  text-decoration: none;
+  color: var(--gold);
+}
+
+@media (min-width: 900px) {
+  .strip li {
+    border-top: 0;
+    border-left: 1px solid var(--line-strong);
+  }
+  .strip li:last-child {
+    border-right: 1px solid var(--line-strong);
+  }
+}
+
+/* Split blocks */
+.split {
+  display: grid;
+  gap: clamp(48px, 7vw, 96px);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+}
+
+.splitMedia {
+  width: calc(100% - 18px);
+  max-width: 560px;
+  justify-self: center;
+}
+
+.splitMedia :global(.media) {
+  aspect-ratio: 4 / 5;
+}
+
+/* Products */
+.sourcing p + p {
+  margin-top: 1em;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 520px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Price list */
+.priceActions {
+  margin-top: 32px;
+}
+
+.priceList {
+  display: block;
+  justify-self: center;
+  width: 100%;
+  max-width: 520px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  transition: transform 0.5s var(--ease);
+}
+
+.priceList:hover {
+  transform: translateY(-4px);
+}
+
+.priceList img {
+  width: 100%;
+  height: auto;
+}
+
+/* Find us */
+.find {
+  display: grid;
+  gap: clamp(40px, 6vw, 72px);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .find {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cards {
+  margin-top: 32px;
+}
+
+.social {
+  margin-top: 24px;
+}
+
+/* Floating WhatsApp button */
+.whatsapp {
+  position: fixed;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  z-index: 40;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--whatsapp);
+  color: var(--white);
+  font-size: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s var(--ease);
+}
+
+.whatsapp:hover {
+  transform: scale(1.08);
+}
+
+/* Footer */
+.footer {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 56px var(--gutter) calc(96px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: var(--black);
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.footerLogo {
+  height: 48px;
+  width: auto;
+  margin-bottom: 8px;
+}
+
+.footer a {
+  color: var(--gold);
+}
+
+.footerSmall {
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}

@@ -1,0 +1,78 @@
+.page {
+  padding: calc(var(--header-h) + clamp(40px, 6vw, 72px)) 0 var(--section);
+}
+
+.heading {
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+
+.layout {
+  display: grid;
+  gap: 20px;
+  align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (min-width: 960px) {
+  .layout {
+    grid-template-columns: 1.6fr 1fr;
+    gap: 32px;
+  }
+  .summary {
+    order: 2;
+    position: sticky;
+    top: calc(var(--header-h) + 24px);
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.thumb {
+  flex: 0 0 88px;
+  aspect-ratio: 1;
+}
+
+.itemName {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  line-height: 1.2;
+}
+
+.itemPrice {
+  margin-top: 4px;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.empty {
+  color: var(--text-soft);
+}
+
+.perks {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  margin: 22px 0;
+  padding: 18px 0;
+  border-block: 1px solid var(--line);
+  font-size: var(--fs-small);
+  color: var(--text-soft);
+}
+
+.perks li::before {
+  content: '✓';
+  margin-right: 10px;
+  color: var(--gold);
+}
+
+.summaryLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+}

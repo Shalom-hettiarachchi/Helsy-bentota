@@ -1,0 +1,46 @@
+# The Helsy Bentota – Hostinger / Apache rules
+Options -Indexes
+DirectoryIndex index.html index.php
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # (Turn on "Force HTTPS" in Hostinger hPanel -> Security -> SSL)
+
+  # Old PHP site addresses -> new pages (letter case matters)
+  RewriteRule ^index(\.php)?$ / [R=301,L]
+  RewriteRule ^Reservation(\.php)?$ /reservation/ [R=301,L]
+  RewriteRule ^Menu(\.php)?$ /menu/ [R=301,L]
+  RewriteRule ^(Aboutus|aboutus)(\.php)?$ /about/ [R=301,L]
+  RewriteRule ^(ContactUs|contactus)(\.php)?$ /contact/ [R=301,L]
+  RewriteRule ^(PetesMeats|petesmeats)(\.php)?$ /petes-meats/ [R=301,L]
+  RewriteRule ^Products(\.php)?$ /products/ [R=301,L]
+  RewriteRule ^(PlaceOrder|placeorder)(\.php)?$ /order/ [R=301,L]
+
+  # Old mail scripts and libraries are gone for good
+  RewriteRule ^(email-send-process|reservations_email_send_process|reservation_client_email_process|PlaceOrder_email_send_process|PlaceOrder_client_email_process|PHPMailer|SMTP|POP3|OAuth|Exception|header|footer)\.php$ - [G,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  <If "%{REQUEST_URI} =~ m#^/admin#">
+    Header set X-Robots-Tag "noindex, nofollow"
+    Header set Cache-Control "no-store"
+  </If>
+  # Next.js build files have unique names, so browsers can keep them forever
+  <If "%{REQUEST_URI} =~ m#^/_next/static/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>

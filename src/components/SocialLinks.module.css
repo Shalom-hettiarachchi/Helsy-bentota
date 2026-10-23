@@ -1,0 +1,25 @@
+.list {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+}
+
+.link {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 18px;
+  color: var(--text);
+  transition:
+    border-color 0.3s,
+    color 0.3s,
+    background-color 0.3s;
+}
+
+.link:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}

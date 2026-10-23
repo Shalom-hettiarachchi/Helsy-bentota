@@ -1,0 +1,69 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  min-height: clamp(440px, 64svh, 660px);
+  padding: calc(var(--header-h) + 40px) var(--gutter) 64px;
+  text-align: center;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to bottom, rgba(15, 16, 16, 0) 55%, var(--bg) 100%),
+    rgba(0, 0, 0, var(--mask));
+}
+
+.image {
+  z-index: -2;
+  object-fit: cover;
+  animation: settle 14s var(--ease) both;
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.content {
+  max-width: 760px;
+  animation: fade-up 1s var(--ease) 0.15s both;
+}
+
+.eyebrow {
+  color: var(--white);
+  opacity: 0.85;
+}
+
+.eyebrow::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+}
+
+.title {
+  font-size: var(--fs-h1);
+}
+
+.text {
+  margin: 20px auto 0;
+  max-width: 560px;
+  font-size: var(--fs-lead);
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.7;
+}
+
+.actions {
+  justify-content: center;
+  margin-top: 32px;
+}

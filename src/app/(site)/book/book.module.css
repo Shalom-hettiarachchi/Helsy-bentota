@@ -1,0 +1,15 @@
+.page {
+  padding: calc(var(--header-h) + clamp(40px, 6vw, 72px)) 0 var(--section);
+}
+
+.heading {
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+.heading h1 {
+  margin-bottom: 18px;
+}
+
+.heading .lead {
+  max-width: 640px;
+}

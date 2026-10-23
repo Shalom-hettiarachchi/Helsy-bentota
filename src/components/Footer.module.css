@@ -1,0 +1,103 @@
+.footer {
+  background: var(--black);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(56px, 7vw, 96px);
+  font-size: 0.95rem;
+}
+
+.grid {
+  display: grid;
+  gap: 40px 32px;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1.5fr 1fr 1.2fr 1.2fr;
+  }
+}
+
+.brand {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .brand {
+    grid-column: 1 / -1;
+  }
+}
+
+.brand p {
+  color: var(--text-soft);
+  max-width: 340px;
+}
+
+.logo {
+  height: 56px;
+  width: auto;
+}
+
+.title {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.grid p {
+  margin-bottom: 8px;
+}
+
+.grid a:not(:global(.btn)):not(:global(.link-arrow)) {
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.3s;
+}
+
+.grid a:not(:global(.btn)):not(:global(.link-arrow)):hover {
+  color: var(--gold);
+}
+
+.links {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 16px;
+}
+
+@media (min-width: 1024px) {
+  .links {
+    grid-template-columns: 1fr;
+  }
+}
+
+.muted {
+  color: var(--text-faint);
+}
+
+.cta {
+  margin-top: 12px;
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-top: clamp(48px, 6vw, 80px);
+  padding-top: 22px;
+  padding-bottom: 28px;
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+  color: var(--text-faint);
+}

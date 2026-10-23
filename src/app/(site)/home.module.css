@@ -1,0 +1,390 @@
+/* Hero */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: calc(var(--header-h) + 24px) var(--gutter) 96px;
+  text-align: center;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.7)),
+    linear-gradient(to bottom, rgba(15, 16, 16, 0) 60%, var(--bg) 100%);
+}
+
+.heroImg {
+  z-index: -2;
+  object-fit: cover;
+  animation: settle 16s var(--ease) both;
+}
+
+@keyframes settle {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroLogo {
+  width: min(440px, 72vw);
+  height: auto;
+  animation: fade-up 1.2s var(--ease) 0.1s both;
+}
+
+.heroTag {
+  margin-top: clamp(20px, 3vw, 32px);
+  font-size: clamp(0.72rem, 1.2vw, 0.85rem);
+  font-weight: 400;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  text-wrap: balance;
+  animation: fade-up 1.2s var(--ease) 0.35s both;
+}
+
+@media (max-width: 480px) {
+  .heroTag {
+    letter-spacing: 0.26em;
+    max-width: 260px;
+    line-height: 2;
+  }
+}
+
+.heroActions {
+  justify-content: center;
+  margin-top: clamp(28px, 4vw, 40px);
+  animation: fade-up 1.2s var(--ease) 0.55s both;
+}
+
+@media (max-width: 420px) {
+  .heroActions {
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
+.scrollCue {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  width: 26px;
+  height: 42px;
+  margin-left: -13px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 14px;
+}
+
+.scrollCue span {
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  width: 2px;
+  height: 8px;
+  margin-left: -1px;
+  border-radius: 2px;
+  background: var(--white);
+  animation: cue 2s ease-in-out infinite;
+}
+
+@keyframes cue {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@media (max-height: 620px) {
+  .scrollCue {
+    display: none;
+  }
+}
+
+/* Two-column text + image block */
+.split {
+  display: grid;
+  gap: clamp(48px, 7vw, 96px);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+  .petes {
+    grid-template-columns: 0.95fr 1.05fr;
+  }
+}
+
+@media (max-width: 899px) {
+  .petes .storyMedia {
+    order: 2;
+  }
+}
+
+.storyMedia {
+  max-width: 560px;
+  width: calc(100% - 18px);
+  justify-self: center;
+}
+
+.storyMedia :global(.media) {
+  aspect-ratio: 4 / 5;
+}
+
+.more {
+  margin-top: 28px;
+}
+
+.petesActions {
+  margin-top: 32px;
+}
+
+/* Highlights */
+.highlights {
+  padding-bottom: var(--section);
+}
+
+.highlightGrid {
+  list-style: none;
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 760px) {
+  .highlightGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+.highlight {
+  padding: clamp(26px, 3vw, 38px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--surface), transparent);
+}
+
+.highlightIcon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 20px;
+  border: 1px solid var(--gold-deep);
+  border-radius: 50%;
+  color: var(--gold);
+  font-size: 22px;
+}
+
+.highlight h3 {
+  margin-bottom: 10px;
+}
+
+.highlight p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+}
+
+/* "Just like Mum makes" */
+.menu {
+  position: relative;
+  padding-bottom: var(--section);
+}
+
+.menuMedia {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.menuImg {
+  object-fit: cover;
+}
+
+.menuCard {
+  position: relative;
+  z-index: 1;
+  width: calc(100% - var(--gutter) * 2);
+  max-width: 620px;
+  margin: -72px auto 0;
+  padding: clamp(32px, 5vw, 56px) clamp(24px, 5vw, 60px);
+  background: var(--white);
+  color: var(--black);
+  text-align: center;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.menuEyebrow {
+  color: var(--gold-deep);
+}
+
+.menuEyebrow::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+}
+
+.menuCard h2 {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  letter-spacing: 0.02em;
+}
+
+.menuCard p:not(:global(.eyebrow)) {
+  margin: 22px 0 30px;
+  color: #444;
+  line-height: 1.8;
+}
+
+@media (min-width: 768px) {
+  .menu {
+    display: grid;
+    place-items: center;
+    min-height: clamp(620px, 52vw, 860px);
+    padding: 64px var(--gutter);
+    margin-bottom: var(--section);
+  }
+  .menuMedia {
+    position: absolute;
+    inset: 0;
+    aspect-ratio: auto;
+  }
+  .menuCard {
+    margin: 0;
+    width: 100%;
+  }
+}
+
+/* Gallery sits full-bleed under the accommodation text */
+.gallery {
+  margin-top: clamp(48px, 6vw, 72px);
+}
+
+/* Visit band */
+.visit {
+  padding-block: clamp(56px, 7vw, 88px);
+  border-block: 1px solid var(--line);
+}
+
+.visitGrid {
+  display: grid;
+  gap: 36px;
+}
+
+@media (min-width: 760px) {
+  .visitGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.visitItem > svg {
+  font-size: 22px;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.visitItem h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+}
+
+.visitItem p {
+  color: var(--text-soft);
+}
+
+.visitItem p a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.visitItem :global(.link-arrow) {
+  margin-top: 12px;
+}
+
+/* Suite teaser */
+.fromPrice {
+  margin-top: 18px;
+  color: var(--text-soft);
+  letter-spacing: 0.04em;
+}
+
+.fromPrice strong {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+.breakfast {
+  margin: -16px 0 32px;
+}
+
+/* Care services list */
+.careList {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin: 28px 0 32px;
+}
+
+.careList a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition:
+    border-color 0.3s,
+    transform 0.3s var(--ease);
+}
+
+.careList a:hover {
+  border-color: var(--gold-deep);
+  transform: translateX(4px);
+}
+
+.careList svg {
+  flex: 0 0 auto;
+  font-size: 20px;
+  color: var(--gold);
+}
+
+.menuActions {
+  justify-content: center;
+}
+
+.btnDarkOutline {
+  --btn-fg: var(--black);
+  --btn-border: rgba(0, 0, 0, 0.3);
+}
+
+.btnDarkOutline:hover {
+  --btn-bg: var(--black);
+  --btn-fg: var(--white);
+  --btn-border: var(--black);
+}

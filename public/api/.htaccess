@@ -1,0 +1,12 @@
+# Keep the code library, local data and config away from visitors
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^(lib|data)(/|$) - [F,L]
+  RewriteRule ^config(\.local|\.sample)?\.php$ - [F,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>

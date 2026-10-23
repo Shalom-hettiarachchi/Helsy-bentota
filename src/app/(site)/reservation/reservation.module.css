@@ -1,0 +1,97 @@
+.layout {
+  display: grid;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .layout {
+    grid-template-columns: 0.85fr 1.15fr;
+  }
+  .intro {
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+  }
+}
+
+.details {
+  list-style: none;
+  display: grid;
+  gap: 18px;
+  margin: 32px 0;
+}
+
+.details li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.details svg {
+  flex: 0 0 auto;
+  margin-top: 4px;
+  font-size: 18px;
+  color: var(--gold);
+}
+
+.details span {
+  display: grid;
+  font-size: var(--fs-small);
+  color: var(--text-faint);
+}
+
+.details a,
+.details strong {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.details a:hover {
+  color: var(--gold);
+}
+
+.formTitle {
+  font-size: 1.8rem;
+  margin-bottom: 22px;
+}
+
+.thanks {
+  margin-top: clamp(48px, 6vw, 80px);
+  text-align: center;
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  color: var(--text-soft);
+}
+
+/* Photo trio: swipe on phones, grid on desktop */
+.photos {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0 var(--gutter) var(--section);
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+}
+
+.photos::-webkit-scrollbar {
+  display: none;
+}
+
+.photo {
+  flex: 0 0 78%;
+  aspect-ratio: 3 / 4;
+  scroll-snap-align: start;
+}
+
+@media (min-width: 768px) {
+  .photos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2.4vw, 32px);
+    max-width: calc(var(--container) + var(--gutter) * 2);
+    margin: 0 auto;
+    overflow: visible;
+  }
+}

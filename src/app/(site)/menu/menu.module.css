@@ -1,0 +1,127 @@
+.wrap {
+  max-width: calc(1080px + var(--gutter) * 2);
+}
+
+/* Section shortcuts – swipe on phones */
+.jump {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 calc(var(--gutter) * -1) clamp(36px, 5vw, 56px);
+  padding: 0 var(--gutter);
+}
+
+.jump::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .jump {
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: visible;
+  }
+}
+
+.jump a {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: var(--fs-small);
+  text-decoration: none;
+  color: var(--text-soft);
+  transition:
+    border-color 0.25s,
+    color 0.25s;
+}
+
+.jump a:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.sections {
+  display: grid;
+  gap: clamp(44px, 6vw, 64px) clamp(48px, 7vw, 96px);
+}
+
+@media (min-width: 900px) {
+  .sections {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.section {
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+
+.title {
+  font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gold-deep);
+}
+
+.note {
+  margin-top: 10px;
+  font-size: var(--fs-small);
+  font-style: italic;
+  color: var(--text-faint);
+}
+
+.items {
+  list-style: none;
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.name {
+  color: var(--text);
+  font-weight: 400;
+}
+
+.dots {
+  flex: 1 1 auto;
+  min-width: 20px;
+  border-bottom: 1px dotted var(--line-strong);
+  transform: translateY(-4px);
+}
+
+.price {
+  flex: 0 0 auto;
+  color: var(--gold);
+  font-weight: 500;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.desc {
+  margin-top: 2px;
+  font-size: var(--fs-small);
+  color: var(--text-soft);
+  max-width: 85%;
+}
+
+.footnote {
+  margin-top: clamp(40px, 5vw, 56px);
+  text-align: center;
+  font-size: var(--fs-small);
+  color: var(--text-faint);
+}
+
+.cta {
+  margin-top: clamp(48px, 6vw, 72px);
+}
+
+.cta h2 {
+  margin-bottom: 22px;
+}

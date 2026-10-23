@@ -1,0 +1,262 @@
+{
+  "/images/banners/aboutus-banner.webp": [
+    2560,
+    856
+  ],
+  "/images/banners/contactus-banner.webp": [
+    2560,
+    922
+  ],
+  "/images/banners/home-banner.webp": [
+    2560,
+    1278
+  ],
+  "/images/banners/menu-banner.webp": [
+    2560,
+    900
+  ],
+  "/images/banners/petes-landing-banner.webp": [
+    1920,
+    869
+  ],
+  "/images/banners/petesmeat-banner.webp": [
+    2560,
+    811
+  ],
+  "/images/banners/reservation-banner.webp": [
+    2560,
+    830
+  ],
+  "/images/images/aboutimg.webp": [
+    407,
+    409
+  ],
+  "/images/images/chickenout.webp": [
+    2560,
+    1707
+  ],
+  "/images/images/cs1.webp": [
+    2560,
+    1707
+  ],
+  "/images/images/cs2.webp": [
+    2560,
+    1707
+  ],
+  "/images/images/eggs.webp": [
+    2560,
+    1707
+  ],
+  "/images/images/gal5.webp": [
+    407,
+    543
+  ],
+  "/images/images/hens.webp": [
+    2560,
+    1707
+  ],
+  "/images/images/image-gal1.webp": [
+    407,
+    543
+  ],
+  "/images/images/image-gal2.webp": [
+    407,
+    543
+  ],
+  "/images/images/image-gal3.webp": [
+    407,
+    543
+  ],
+  "/images/images/image-gal4.webp": [
+    406,
+    542
+  ],
+  "/images/images/land.webp": [
+    2560,
+    1133
+  ],
+  "/images/images/menu.webp": [
+    1813,
+    4606
+  ],
+  "/images/images/ourstory-img.webp": [
+    1080,
+    1546
+  ],
+  "/images/images/pete.webp": [
+    2560,
+    1986
+  ],
+  "/images/images/petesmeats-about-img.jpg": [
+    1080,
+    1008
+  ],
+  "/images/images/pricelist.png": [
+    1091,
+    1754
+  ],
+  "/images/images/ribs.webp": [
+    2560,
+    1095
+  ],
+  "/images/images/single1.webp": [
+    2560,
+    3840
+  ],
+  "/images/images/single2.webp": [
+    2560,
+    3840
+  ],
+  "/images/images/single3.webp": [
+    2560,
+    3840
+  ],
+  "/images/logo/helsy-logo-white.png": [
+    2234,
+    1025
+  ],
+  "/images/logo/helsy-wordmark-white.png": [
+    894,
+    180
+  ],
+  "/images/logo/petes-meats-logo-banner.png": [
+    702,
+    700
+  ],
+  "/images/logo/petes-meats-logo.png": [
+    207,
+    71
+  ],
+  "/images/product-imgs/beef-burger.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/beef-dripping.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/beef-kidney.webp": [
+    351,
+    231
+  ],
+  "/images/product-imgs/beef-steakpies.webp": [
+    350,
+    231
+  ],
+  "/images/product-imgs/blueberry-turnover.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/chicken-pies.webp": [
+    350,
+    231
+  ],
+  "/images/product-imgs/chicken-sausages.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/chiken-burger.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/chips.webp": [
+    350,
+    231
+  ],
+  "/images/product-imgs/cooked-ham.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/cumberland-sausage.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/lard.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/liver-pate.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/minceandonion.webp": [
+    351,
+    231
+  ],
+  "/images/product-imgs/packaged/beefandkidney.webp": [
+    350,
+    231
+  ],
+  "/images/product-imgs/packaged/beefandonion.webp": [
+    351,
+    231
+  ],
+  "/images/product-imgs/packaged/beefburger.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/packaged/beefsteak.webp": [
+    350,
+    231
+  ],
+  "/images/product-imgs/packaged/blueberryturnover.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/packaged/chickenburger.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/packaged/chickenpie.webp": [
+    350,
+    231
+  ],
+  "/images/product-imgs/packaged/chickensausage.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/packaged/cookedham.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/packaged/cumberlandsausage.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/packaged/dsc09603.webp": [
+    350,
+    231
+  ],
+  "/images/product-imgs/packaged/porkpies.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/packaged/potatochips.webp": [
+    350,
+    231
+  ],
+  "/images/product-imgs/packaged/sausagerolls.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/packaged/smokedbacon.webp": [
+    351,
+    229
+  ],
+  "/images/product-imgs/pork-pie.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/sausage-rolls.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/scotcheggs.webp": [
+    350,
+    229
+  ],
+  "/images/product-imgs/smoked-bacon.webp": [
+    350,
+    229
+  ]
+}

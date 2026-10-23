@@ -1,0 +1,35 @@
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 10px;
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--line);
+}
+
+:global(html.menu-open) .bar {
+  display: none;
+}
+
+.bar :global(.btn) {
+  min-height: 48px;
+  padding: 0 12px;
+}
+
+.spacer {
+  height: calc(70px + env(safe-area-inset-bottom));
+  background: var(--black);
+}
+
+@media (min-width: 768px) {
+  .bar,
+  .spacer {
+    display: none;
+  }
+}

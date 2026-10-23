@@ -1,0 +1,144 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--card);
+  color: var(--card-text);
+  border-radius: var(--radius-lg);
+  transition:
+    transform 0.4s var(--ease),
+    box-shadow 0.4s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #ddd9d0;
+}
+
+.media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    opacity 0.5s var(--ease),
+    transform 0.8s var(--ease);
+}
+
+.alt {
+  opacity: 0;
+  transform: scale(1.06);
+}
+
+@media (hover: hover) {
+  .hasAlt:hover .alt {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .hasAlt:hover .main {
+    transform: scale(1.04);
+  }
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px 22px;
+}
+
+.name {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.buy {
+  margin-top: auto;
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.price {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.order {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 22px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.order:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+/* Compact side-by-side card for product lists on small phones */
+@media (max-width: 519px) {
+  .card {
+    flex-direction: row;
+  }
+  .card .media {
+    flex: 0 0 38%;
+    aspect-ratio: auto;
+    min-height: 140px;
+  }
+  .card .body {
+    padding: 14px 14px 16px;
+  }
+  .card .name {
+    font-size: 0.98rem;
+  }
+  .card .desc {
+    font-size: 0.82rem;
+  }
+  .shop .desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .shop .buy {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding-top: 10px;
+  }
+}

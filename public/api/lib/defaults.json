@@ -1,0 +1,137 @@
+{
+  "settings": {
+    "currency": "LKR",
+    "bookingPhone": "+94 77 690 9169",
+    "bookingContactName": "",
+    "publicEmails": ["helsyofbentota@gmail.com", "pgrahamlanka@yahoo.com"],
+    "breakfastNotice": "All rates include breakfast.",
+    "minNights": 1,
+    "checkIn": "2:00 pm",
+    "checkOut": "11:00 am",
+    "bookingNote": "This is a booking request – no payment is taken online. We'll confirm availability by email or phone, usually within 24 hours."
+  },
+  "privateSettings": {
+    "notifyEmails": ["helsyofbentota@gmail.com", "pgrahamlanka@yahoo.com"]
+  },
+  "rooms": [
+    {
+      "slug": "upstairs-suite",
+      "name": "Self-Contained Upstairs Suite",
+      "summary": "A private two-bedroom suite upstairs, overlooking the garden and swimming pool.",
+      "description": "Our Self-Contained Upstairs Suite has two bedrooms, two bathrooms, its own kitchen and a living room, with views over the garden and swimming pool. It is ideal for a large family or two couples travelling together, and each bedroom can take an extra bed.",
+      "features": [
+        "2 bedrooms",
+        "2 bathrooms",
+        "Kitchen",
+        "Living room",
+        "Garden & swimming pool view",
+        "Breakfast included"
+      ],
+      "capacityNote": "Suitable for a large family, 2 couples, or 2 couples with an extra bed in each bedroom.",
+      "maxGuests": 4,
+      "maxExtraBeds": 2,
+      "extraBedPrice": 0,
+      "offRate": 50000,
+      "peakRate": 50000,
+      "images": [
+        { "src": "/images/images/image-gal3.webp", "alt": "Double bedroom in the suite" },
+        { "src": "/images/images/image-gal2.webp", "alt": "Second bedroom with wooden bed" },
+        { "src": "/images/images/image-gal4.webp", "alt": "Bedroom with wardrobe and kitchenette" },
+        { "src": "/images/images/gal5.webp", "alt": "The suite's kitchen" }
+      ]
+    }
+  ],
+  "seasons": [
+    { "name": "Peak season", "start": "12-12", "end": "04-11" },
+    { "name": "Peak season (July & August)", "start": "07-01", "end": "08-31" }
+  ],
+  "menu": [
+    {
+      "name": "Starters & Soups",
+      "note": "Soups are served with a Helsy bread bun",
+      "items": [
+        { "name": "Tomato, onion & cucumber salad", "description": "", "price": "800" },
+        { "name": "Helsy special salad", "description": "Tomato, onion, cucumber, egg, ham, cheese and sausage", "price": "2,000" },
+        { "name": "Homemade tomato soup", "description": "", "price": "1,350" },
+        { "name": "Homemade mushroom soup", "description": "", "price": "1,350" },
+        { "name": "Prawn cocktail", "description": "With Helsy Marie Rose sauce", "price": "2,200" },
+        { "name": "Homemade pork pâté", "description": "With toasted bread", "price": "2,500" }
+      ]
+    },
+    {
+      "name": "British Classics",
+      "note": "Served with chips or mash and garden or mushy peas",
+      "items": [
+        { "name": "Steak pie", "description": "", "price": "3,050" },
+        { "name": "Steak & kidney pie", "description": "", "price": "3,050" },
+        { "name": "Chicken pie", "description": "", "price": "3,050" },
+        { "name": "Pork sausages", "description": "Add 2 eggs and baked beans + 1,100 · add bacon + 600", "price": "2,700" },
+        { "name": "Fish & chips", "description": "", "price": "3,550" },
+        { "name": "Roast half chicken", "description": "", "price": "3,250" },
+        { "name": "Cottage pie", "description": "With cheesy mash", "price": "3,000" }
+      ]
+    },
+    {
+      "name": "Burgers & Sandwiches",
+      "note": "Burgers come in a homemade bun with Helsy chips",
+      "items": [
+        { "name": "Beef burger", "description": "", "price": "2,650" },
+        { "name": "Chicken burger", "description": "", "price": "2,650" },
+        { "name": "Ham sandwich", "description": "With our own ham", "price": "1,800" },
+        { "name": "Ham & cheese sandwich", "description": "", "price": "2,400" },
+        { "name": "Egg sandwich", "description": "", "price": "1,500" }
+      ]
+    },
+    {
+      "name": "Grill",
+      "note": "",
+      "items": [
+        { "name": "Aged beef sirloin", "description": "Chips or mash, peas, mushrooms, tomato and brandy pepper sauce", "price": "4,250" },
+        { "name": "Steak Diane", "description": "With Diane sauce", "price": "4,350" },
+        { "name": "Pork or chicken schnitzel", "description": "With chips and cucumber salad", "price": "3,850" },
+        { "name": "Honey-glazed pork ribs", "description": "", "price": "2,500" }
+      ]
+    },
+    {
+      "name": "Curries & Devilled Dishes",
+      "note": "Curries come with basmati rice, dhal and mango chutney; devilled dishes with rice",
+      "items": [
+        { "name": "Chicken curry", "description": "Mild or medium", "price": "2,000" },
+        { "name": "Beef curry", "description": "Hot", "price": "2,200" },
+        { "name": "Thai prawn curry", "description": "", "price": "3,000" },
+        { "name": "Devilled chicken, pork or beef", "description": "", "price": "1,700" },
+        { "name": "Devilled prawns", "description": "", "price": "2,000" }
+      ]
+    },
+    {
+      "name": "Vegetarian & Pasta",
+      "note": "",
+      "items": [
+        { "name": "Cheese & onion pie", "description": "With chips or mash and peas", "price": "3,050" },
+        { "name": "Vegetable lasagne", "description": "", "price": "2,500" },
+        { "name": "Homemade bread with dhal curry", "description": "And coconut or onion sambol", "price": "1,450" },
+        { "name": "Spaghetti Bolognese", "description": "", "price": "2,900" },
+        { "name": "Spaghetti Carbonara", "description": "", "price": "3,150" }
+      ]
+    },
+    {
+      "name": "Desserts",
+      "note": "",
+      "items": [
+        { "name": "Sticky toffee pudding", "description": "With toffee syrup and custard", "price": "1,750" },
+        { "name": "Syrup pudding", "description": "With custard", "price": "1,750" },
+        { "name": "Apple or pear & blueberry turnover", "description": "With cream or ice cream", "price": "1,750" },
+        { "name": "Vanilla or chocolate ice cream", "description": "", "price": "850" }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "note": "",
+      "items": [
+        { "name": "Soft drinks", "description": "Coke, Fanta, Sprite, soda or ginger beer", "price": "400" },
+        { "name": "Tea or coffee", "description": "", "price": "400" },
+        { "name": "Water (large)", "description": "", "price": "500" }
+      ]
+    }
+  ]
+}
