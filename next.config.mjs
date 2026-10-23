@@ -6,7 +6,7 @@ import { PHASE_DEVELOPMENT_SERVER } from 'next/constants.js'
 // PHP server started by `npm run api`.
 export default function config(phase) {
   const dev = phase === PHASE_DEVELOPMENT_SERVER
-  const apiOrigin = process.env.HELSY_API_ORIGIN || 'http://127.0.0.1:8000'
+  const apiOrigin = process.env.HELSY_API_ORIGIN || 'http://127.0.0.1:8787'
 
   return {
     trailingSlash: true,

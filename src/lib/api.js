@@ -26,20 +26,26 @@ export async function api(path, { method = 'GET', body, csrf, signal } = {}) {
     if (err.name === 'AbortError') throw err
     throw new ApiError('Could not reach the server. Please check your connection and try again.')
   }
+  const text = await res.text().catch(() => '')
   let data = null
   try {
-    data = await res.json()
+    data = JSON.parse(text)
   } catch {
     // not JSON (e.g. PHP not running)
   }
-  if (res.ok && !data) {
-    throw new ApiError(
-      'The server did not send a proper reply. PHP may not be running for /api, or it is older than PHP 8.1.',
-      res.status,
-    )
+  if (data && typeof data === 'object' && data.ok === false) {
+    throw new ApiError(data.error || `The server returned an error (${res.status}). Please try again.`, res.status, data)
   }
-  if (!res.ok || !data || data.ok === false) {
-    throw new ApiError(data?.error || `The server returned an error (${res.status}). Please try again.`, res.status, data)
+  if (!res.ok || !data || typeof data !== 'object' || data.ok !== true) {
+    // Show what actually came back, so a wrong setup is easy to spot.
+    const type = res.headers.get('content-type') || 'unknown type'
+    const sample = text.replace(/\s+/g, ' ').trim().slice(0, 160) || '(empty)'
+    throw new ApiError(
+      `The server did not send a proper reply (status ${res.status}, ${type}) for /api/${path.split('?')[0]}. ` +
+        `It sent: ${sample}`,
+      res.status,
+      data,
+    )
   }
   return data
 }

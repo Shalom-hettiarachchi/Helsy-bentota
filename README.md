@@ -12,7 +12,7 @@ Needs Node.js and PHP 8.1+.
 
 ```bash
 npm install
-npm run api      # PHP API on http://127.0.0.1:8000 (keep it running)
+npm run api      # PHP API on http://127.0.0.1:8787 (keep it running)
 npm run dev      # website on http://localhost:3000 – /api is forwarded to the PHP server
 ```
 
