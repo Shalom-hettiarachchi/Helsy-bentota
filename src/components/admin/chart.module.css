@@ -1,0 +1,101 @@
+/* Look of shadcn/ui charts, in the admin panel's colours */
+.container {
+  width: 100%;
+  height: 260px;
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.container :global(.recharts-cartesian-axis-tick text) {
+  fill: var(--text-faint);
+}
+
+.container :global(.recharts-cartesian-grid line) {
+  stroke: var(--line);
+}
+
+.container :global(.recharts-curve.recharts-tooltip-cursor) {
+  stroke: var(--line-strong);
+}
+
+.container :global(.recharts-rectangle.recharts-tooltip-cursor) {
+  fill: rgba(255, 255, 255, 0.05);
+}
+
+.container :global(.recharts-sector),
+.container :global(.recharts-surface) {
+  outline: none;
+}
+
+.container :global(.recharts-pie-sector .recharts-sector) {
+  stroke: var(--surface);
+}
+
+.tooltip {
+  display: grid;
+  gap: 6px;
+  min-width: 148px;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.tooltipLabel {
+  font-weight: 500;
+}
+
+.tooltipItems {
+  display: grid;
+  gap: 4px;
+}
+
+.tooltipItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tooltipName {
+  color: var(--text-soft);
+}
+
+.tooltipValue {
+  margin-left: auto;
+  padding-left: 12px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.indicatorDot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.indicatorLine {
+  flex: none;
+  width: 4px;
+  height: 14px;
+  border-radius: 2px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 16px;
+  padding-top: 12px;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

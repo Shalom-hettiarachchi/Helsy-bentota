@@ -43,15 +43,19 @@
 .shell {
   min-height: 100svh;
   display: grid;
+  /* minmax(0, …) lets the menu row scroll sideways on phones instead of
+     stretching the whole page */
+  grid-template-columns: minmax(0, 1fr);
 }
 
 @media (min-width: 960px) {
   .shell {
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 240px minmax(0, 1fr);
   }
 }
 
 .sidebar {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -1102,4 +1106,110 @@ button.rowMain:hover strong {
 .details dd {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+/* Password box with show / hide eye */
+.passwordWrap {
+  position: relative;
+  display: block;
+}
+
+.passwordWrap input {
+  padding-right: 52px;
+}
+
+.passwordEye {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  color: var(--text-soft);
+  background: none;
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.passwordEye:hover,
+.passwordEye:focus-visible {
+  color: var(--text);
+}
+
+.passwordEye:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.passwordEye svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Dashboard graphs */
+.chartGrid {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 900px) {
+  .chartGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .chartWide {
+    grid-column: 1 / -1;
+  }
+}
+
+.chartHead p,
+.chartTitle + p {
+  margin-top: 6px;
+}
+
+.chartHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px 24px;
+}
+
+.chartFigures {
+  display: flex;
+  gap: 28px;
+}
+
+.chartFigure {
+  display: grid;
+  text-align: right;
+}
+
+.chartFigure strong {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.chartFigure span {
+  font-size: var(--fs-small);
+  color: var(--text-faint);
+}
+
+.chartSquare {
+  height: 280px;
+}
+
+.donutValue {
+  font-family: var(--font-display);
+  font-size: 28px;
+  fill: var(--text);
+}
+
+.donutLabel {
+  font-size: 12px;
+  fill: var(--text-faint);
 }

@@ -12,7 +12,7 @@ Needs Node.js and PHP 8.1+.
 
 ```bash
 npm install
-npm run api      # PHP API on http://127.0.0.1:8000 (keep it running)
+npm run api      # PHP API on http://127.0.0.1:8787 (keep it running)
 npm run dev      # website on http://localhost:3000 – /api is forwarded to the PHP server
 ```
 
@@ -51,7 +51,7 @@ Old PHP URLs (`/Aboutus`, `/ContactUs.php`, `/Reservation`, `/PetesMeats`, …) 
 ## Admin panel (`/admin`)
 
 - **Dashboard** – new booking requests (confirm / decline in one click, guest is emailed), upcoming stays
-- **Bookings** – search, filter, edit, add bookings taken by phone, download as CSV
+- **Bookings** – search, filter, edit, add bookings taken by phone, export to Excel (.xlsx) with a monthly summary
 - **Calendar** – month view of bookings and blocked dates; block dates for maintenance or other channels
 - **Rooms & Rates** – off-season / peak rates, extra beds, description, features, photos (upload), peak
   season dates

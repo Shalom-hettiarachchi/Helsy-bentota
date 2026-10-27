@@ -6,12 +6,15 @@ import Gallery from '@/components/Gallery'
 import { BreakfastNotice, FromPrice, LivePhone } from '@/components/booking/BookingBits'
 import { careServices } from '@/data/care'
 import { externalProps, helsy, petesSiteUrl, siteUrl } from '@/data/site'
+import { pageMeta } from '@/lib/seo'
 import styles from './home.module.css'
 
-export const metadata = {
+export const metadata = pageMeta({
   title: { absolute: 'The Helsy Bentota – Stay, Care & British Dining in Bentota' },
-  alternates: { canonical: '/' },
-}
+  description:
+    'A self-contained two-bedroom suite with garden and pool views, residential, dementia and respite care, and homemade British food on our family farm in Bentota, Sri Lanka.',
+  path: '/',
+})
 
 const gallery = [
   { src: '/images/images/image-gal3.webp', alt: 'Double bedroom in the upstairs suite' },
@@ -39,25 +42,45 @@ const highlights = [
   },
 ]
 
-// Tells Google what The Helsy is, with address, hours and contact details
+// Tells Google what The Helsy is, with address, location, hours and contact details
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': ['LodgingBusiness', 'Restaurant'],
+  '@id': `${siteUrl}/#business`,
   name: helsy.name,
-  url: siteUrl,
-  image: `${siteUrl}/images/banners/home-banner.webp`,
+  description:
+    'Family-run homestay, care home and British restaurant in Bentota, Sri Lanka, with a self-contained two-bedroom suite overlooking the garden and swimming pool.',
+  url: `${siteUrl}/`,
+  image: [
+    `${siteUrl}/images/banners/home-banner.webp`,
+    `${siteUrl}/images/images/image-gal3.webp`,
+    `${siteUrl}/images/images/gal5.webp`,
+  ],
+  logo: `${siteUrl}/images/logo/helsy-logo-white.png`,
   telephone: '+94776909169',
   email: helsy.email,
-  servesCuisine: 'British',
+  servesCuisine: ['British', 'Sri Lankan'],
+  hasMenu: `${siteUrl}/menu/`,
   priceRange: '$$',
   acceptsReservations: true,
+  checkinTime: '14:00',
+  checkoutTime: '11:00',
+  numberOfRooms: 1,
+  amenityFeature: ['Swimming pool', 'Garden', 'Breakfast included', 'Kitchen'].map((name) => ({
+    '@type': 'LocationFeatureSpecification',
+    name,
+    value: true,
+  })),
   address: {
     '@type': 'PostalAddress',
     streetAddress: '2km Post, Circular road, Kommalta',
     addressLocality: 'Bentota',
     postalCode: '80500',
+    addressRegion: 'Southern Province',
     addressCountry: 'LK',
   },
+  geo: { '@type': 'GeoCoordinates', latitude: 6.431059, longitude: 80.009921 },
+  hasMap: helsy.mapsUrl,
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',
@@ -66,7 +89,7 @@ const jsonLd = {
       closes: '21:00',
     },
   ],
-  sameAs: Object.values(helsy.social),
+  sameAs: [...Object.values(helsy.social), helsy.bookingUrl],
 }
 
 export default function HomePage() {
@@ -85,14 +108,28 @@ export default function HomePage() {
           className={styles.heroImg}
         />
         <div className={styles.heroContent}>
-          <Img
-            src="/images/logo/helsy-logo-white.png"
-            alt="The Helsy Bentota"
-            sizes="(max-width: 600px) 72vw, 440px"
-            preload
-            className={styles.heroLogo}
-          />
-          <p className={styles.heroTag}>Stay · Care · British dining · Bentota</p>
+          {/* The page's main heading: the logo, plus words for search engines and screen readers */}
+          <h1 className={styles.heroHeading}>
+            <Img
+              src="/images/logo/helsy-logo-white.png"
+              alt="The Helsy Bentota"
+              sizes="(max-width: 600px) 64vw, 380px"
+              preload
+              className={styles.heroLogo}
+            />
+            <span className="sr-only"> – stay, care and British dining in Bentota, Sri Lanka</span>
+          </h1>
+          <p className={styles.heroTag}>Stay · Care · British dining</p>
+          <p className={styles.heroLead}>Home-cooked British food, a pool to relax by, and caring hands when you need them.</p>
+          <ul className={styles.heroFacts}>
+            <li>
+              <FromPrice />
+            </li>
+            <li>Breakfast included</li>
+            <li>
+              <FiMapPin aria-hidden="true" /> Kommalta, Bentota
+            </li>
+          </ul>
           <div className={`btn-row ${styles.heroActions}`}>
             <Link href="/book" className="btn btn-light">
               Book Your Stay

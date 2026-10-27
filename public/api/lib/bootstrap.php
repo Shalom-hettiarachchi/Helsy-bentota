@@ -4,6 +4,8 @@
 declare(strict_types=1);
 
 define('HELSY_API', true);
+// Never print PHP errors as HTML: the admin panel only understands JSON.
+ini_set('display_errors', '0');
 date_default_timezone_set('Asia/Colombo');
 
 require __DIR__ . '/db.php';
@@ -138,6 +140,18 @@ set_exception_handler(function (Throwable $e) {
     log_error(get_class($e) . ': ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());
     $msg = helsy_config()['debug'] ? $e->getMessage() : 'Something went wrong on our side. Please try again or call us.';
     json_out(['error' => $msg], 500);
+});
+
+// Fatal errors skip the exception handler; still answer with JSON.
+register_shutdown_function(function () {
+    $e = error_get_last();
+    if (!$e || !in_array($e['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR], true)) return;
+    error_log('Helsy API fatal: ' . $e['message'] . ' in ' . $e['file'] . ':' . $e['line']);
+    if (headers_sent()) return;
+    while (ob_get_level()) ob_end_clean();
+    http_response_code(500);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['ok' => false, 'error' => 'Something went wrong on our side. Please try again or call us.']);
 });
 
 set_error_handler(function (int $no, string $str, string $file, int $line) {

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "api": "php -S 127.0.0.1:8000 -t public",
+    "api": "php -S 127.0.0.1:8787 -t public",
     "build": "next build",
     "preview": "php -S 127.0.0.1:8080 -t out"
   },
@@ -13,6 +13,8 @@
     "next": "^16.4.2",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-icons": "^5.7.0"
+    "react-icons": "^5.7.0",
+    "recharts": "^3.10.1",
+    "write-excel-file": "^4.1.1"
   }
 }

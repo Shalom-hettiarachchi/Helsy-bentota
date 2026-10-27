@@ -11,7 +11,7 @@
     "bookingNote": "This is a booking request – no payment is taken online. We'll confirm availability by email or phone, usually within 24 hours."
   },
   "privateSettings": {
-    "notifyEmails": ["helsyofbentota@gmail.com", "pgrahamlanka@yahoo.com"]
+    "notifyEmails": ["helsyofbentota@gmail.com", "thehelsybentota@gmail.com", "pgrahamlanka@yahoo.com"]
   },
   "rooms": [
     {
@@ -32,7 +32,7 @@
       "maxExtraBeds": 2,
       "extraBedPrice": 0,
       "offRate": 50000,
-      "peakRate": 50000,
+      "peakRate": 60000,
       "images": [
         { "src": "/images/images/image-gal3.webp", "alt": "Double bedroom in the suite" },
         { "src": "/images/images/image-gal2.webp", "alt": "Second bedroom with wooden bed" },

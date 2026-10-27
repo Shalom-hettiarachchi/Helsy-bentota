@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { LuX } from 'react-icons/lu'
+import { useEffect, useRef, useState } from 'react'
+import { LuEye, LuEyeOff, LuX } from 'react-icons/lu'
 import { STATUS_LABELS } from './context'
 import styles from './admin.module.css'
 
@@ -46,4 +46,24 @@ export function Empty({ children }) {
 
 export function Loading() {
   return <p className={styles.empty}>Loading…</p>
+}
+
+// Password box with an eye button to show / hide what is typed
+export function PasswordInput({ className = '', ...props }) {
+  const [show, setShow] = useState(false)
+  return (
+    <span className={styles.passwordWrap}>
+      <input {...props} type={show ? 'text' : 'password'} className={`input ${className}`} />
+      <button
+        type="button"
+        className={styles.passwordEye}
+        onClick={() => setShow((v) => !v)}
+        aria-label={show ? 'Hide password' : 'Show password'}
+        aria-pressed={show}
+        title={show ? 'Hide password' : 'Show password'}
+      >
+        {show ? <LuEyeOff aria-hidden="true" /> : <LuEye aria-hidden="true" />}
+      </button>
+    </span>
+  )
 }

@@ -19,7 +19,7 @@ export default function OrderForm() {
     if (findProduct(id)) setProductId(id)
   }, [])
   const product = findProduct(productId)
-  const { sending, sent, error, handleSubmit, closeNotice } = useFormSubmit('order')
+  const { sending, sent, error, handleSubmit, closeNotice, formProps, fieldError } = useFormSubmit('order')
 
   return (
     <div className={styles.layout}>
@@ -56,6 +56,7 @@ export default function OrderForm() {
 
       <div className="panel">
         <form
+          {...formProps}
           className="form-grid cols-2"
           onSubmit={(e) => handleSubmit(e, () => setProductId(''))}
         >
@@ -69,6 +70,7 @@ export default function OrderForm() {
               value={productId}
               onChange={(e) => setProductId(e.target.value)}
               required
+              data-required="Please choose a product"
             >
               <option value="" disabled>
                 Choose a product
@@ -79,53 +81,62 @@ export default function OrderForm() {
                 </option>
               ))}
             </select>
+            {fieldError('product')}
           </label>
           <input type="hidden" name="productName" value={product ? `${product.name} (${product.price})` : ''} />
           <label className="field span-2">
             <span className="field-label">
               Quantity <span className="req">*</span>
             </span>
-            <input className="input" name="quantity" type="text" placeholder="e.g. 2 packs or 1kg" required />
+            <input className="input" name="quantity" type="text" placeholder="e.g. 2 packs or 1kg" required data-required="Please tell us how much you would like" />
+            {fieldError('quantity')}
           </label>
           <label className="field">
             <span className="field-label">
               First Name <span className="req">*</span>
             </span>
             <input className="input" name="firstName" type="text" placeholder="First name" autoComplete="given-name" required />
+            {fieldError('firstName')}
           </label>
           <label className="field">
             <span className="field-label">
               Last Name <span className="req">*</span>
             </span>
             <input className="input" name="lastName" type="text" placeholder="Last name" autoComplete="family-name" required />
+            {fieldError('lastName')}
           </label>
           <label className="field">
             <span className="field-label">
               Email <span className="req">*</span>
             </span>
             <input className="input" name="email" type="email" placeholder="example@email.com" autoComplete="email" required />
+            {fieldError('email')}
           </label>
           <label className="field">
             <span className="field-label">
               Phone Number <span className="req">*</span>
             </span>
             <input className="input" name="phone" type="tel" inputMode="tel" placeholder="Mobile" autoComplete="tel" required />
+            {fieldError('phone')}
           </label>
           <label className="field span-2">
             <span className="field-label">
               Street Address <span className="req">*</span>
             </span>
             <input className="input" name="address" type="text" placeholder="House number and street" autoComplete="street-address" required />
+            {fieldError('address')}
           </label>
           <label className="field">
             <span className="field-label">
               City <span className="req">*</span>
             </span>
             <input className="input" name="city" type="text" placeholder="City" autoComplete="address-level2" required />
+            {fieldError('city')}
           </label>
           <label className="field">
             <span className="field-label">Postal Code</span>
             <input className="input" name="postalCode" type="text" inputMode="numeric" placeholder="e.g. 80500" autoComplete="postal-code" />
+            {fieldError('postalCode')}
           </label>
           <label className="checkbox span-2">
             <input type="checkbox" name="cashOnDelivery" value="yes" defaultChecked />

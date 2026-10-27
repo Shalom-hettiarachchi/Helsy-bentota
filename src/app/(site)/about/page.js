@@ -2,13 +2,15 @@ import Link from 'next/link'
 import PageHero from '@/components/PageHero'
 import Img from '@/components/Img'
 import styles from './about.module.css'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata = {
+export const metadata = pageMeta({
   title: 'About Us',
   description:
     'The story of The Helsy Bentota: Peter and Helsy’s ancestral land in Bentota, our free-range farm and the origins of Pete’s Meats.',
-  alternates: { canonical: '/about' },
-}
+  path: '/about',
+  image: { url: '/images/banners/aboutus-banner.webp', width: 2560, height: 856, alt: 'The Helsy Bentota grounds' },
+})
 
 const farm = [
   {

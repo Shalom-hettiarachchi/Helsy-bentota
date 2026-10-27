@@ -144,6 +144,66 @@ function action_dashboard(array $in, array $admin): array
         'pending' => $list("SELECT * FROM bookings WHERE status = 'pending' ORDER BY check_in LIMIT 8"),
         'arrivals' => $list("SELECT * FROM bookings WHERE status = 'confirmed' AND check_out > ? ORDER BY check_in LIMIT 8", [$today]),
         'rooms' => array_map(fn($r) => ['id' => $r['id'], 'name' => $r['name']], $rooms),
+        'charts' => dashboard_charts($rooms),
+    ];
+}
+
+// Figures for the dashboard graphs: the last 12 months plus the next 3.
+// Nights and income are split across months night by night, so a stay over
+// the end of a month counts in both months.
+function dashboard_charts(array $rooms): array
+{
+    $first = date('Y-m-01', strtotime(date('Y-m-01') . ' -11 months'));
+    $end = date('Y-m-01', strtotime(date('Y-m-01') . ' +3 months'));
+
+    $months = [];
+    for ($m = $first; $m < $end; $m = date('Y-m-01', strtotime($m . ' +1 month'))) {
+        $key = substr($m, 0, 7);
+        $days = (int)date('t', strtotime($m));
+        $months[$key] = ['month' => $key, 'nights' => 0, 'income' => 0, 'bookings' => 0, 'capacity' => max(1, count($rooms)) * $days];
+    }
+
+    $q = db()->prepare("SELECT check_in, check_out, total, status, country, source FROM bookings
+        WHERE check_out > ? AND check_in < ?");
+    $q->execute([$first, $end]);
+    $status = ['confirmed' => 0, 'completed' => 0, 'pending' => 0, 'cancelled' => 0];
+    $countries = [];
+    $sources = [];
+    foreach ($q->fetchAll() as $b) {
+        if (isset($status[$b['status']])) $status[$b['status']]++;
+        if ($b['status'] === 'cancelled') continue;
+        $startKey = substr($b['check_in'], 0, 7);
+        if (isset($months[$startKey])) $months[$startKey]['bookings']++;
+        $country = trim((string)$b['country']) ?: 'Not given';
+        $countries[$country] = ($countries[$country] ?? 0) + 1;
+        $source = $b['source'] === 'admin' ? 'Added by admin' : 'Website';
+        $sources[$source] = ($sources[$source] ?? 0) + 1;
+        if ($b['status'] === 'pending') continue; // only confirmed stays count as income/nights
+        $nights = max(1, nights_between($b['check_in'], $b['check_out']));
+        $perNight = (int)$b['total'] / $nights;
+        for ($d = $b['check_in']; $d < $b['check_out']; $d = add_days($d, 1)) {
+            $key = substr($d, 0, 7);
+            if (!isset($months[$key])) continue;
+            $months[$key]['nights']++;
+            $months[$key]['income'] += $perNight;
+        }
+    }
+    arsort($countries);
+    $top = array_slice($countries, 0, 6, true);
+    if (count($countries) > 6) $top['Other'] = array_sum(array_slice($countries, 6));
+
+    return [
+        'months' => array_values(array_map(fn($m) => [
+            'month' => $m['month'],
+            'nights' => $m['nights'],
+            'income' => (int)round($m['income']),
+            'bookings' => $m['bookings'],
+            'occupancy' => (int)round(min(1, $m['nights'] / $m['capacity']) * 100),
+        ], $months)),
+        'currentMonth' => date('Y-m'),
+        'status' => $status,
+        'countries' => array_map(fn($k, $v) => ['name' => (string)$k, 'count' => $v], array_keys($top), $top),
+        'sources' => array_map(fn($k, $v) => ['name' => (string)$k, 'count' => $v], array_keys($sources), $sources),
     ];
 }
 
@@ -164,13 +224,21 @@ function action_bookings(array $in, array $admin): array
         $where[] = 'status = ?';
         $args[] = $status;
     }
+    // Optional check-in date range (used by the Excel export)
+    foreach (['from' => 'check_in >= ?', 'to' => 'check_in <= ?'] as $key => $cond) {
+        $val = (string)($_GET[$key] ?? '');
+        if ($val === '') continue;
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $val)) fail('Please use a valid date.', 422);
+        $where[] = $cond;
+        $args[] = $val;
+    }
     $search = trim((string)($_GET['q'] ?? ''));
     if ($search !== '') {
         $where[] = '(ref LIKE ? OR guest_name LIKE ? OR email LIKE ? OR phone LIKE ?)';
         $like = '%' . str_replace(['%', '_'], ['\%', '\_'], $search) . '%';
         array_push($args, $like, $like, $like, $like);
     }
-    $sql = 'SELECT * FROM bookings' . ($where ? ' WHERE ' . implode(' AND ', $where) : '') . " ORDER BY $order, id DESC LIMIT 500";
+    $sql = 'SELECT * FROM bookings' . ($where ? ' WHERE ' . implode(' AND ', $where) : '') . " ORDER BY $order, id DESC LIMIT " . (!empty($_GET['export']) ? 50000 : 500);
     $q = db()->prepare($sql);
     $q->execute($args);
     return ['bookings' => array_map('booking_out', $q->fetchAll())];

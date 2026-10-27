@@ -63,7 +63,7 @@ section of the config. Tables are created automatically.
    **setup key** from step 4.
 3. You're signed in. You can now delete the `setup_key` line from the config.
 
-Add other people (e.g. Peter) in **Admin → Settings → People who can sign in**.
+Add other people (e.g. Peter) in **Admin → Admins**.
 
 ## 6. Check the settings
 
@@ -91,13 +91,54 @@ hPanel → **Security → SSL** → make sure the certificate is active and turn
 If emails don't arrive, look at `helsy-data/error.log` (one level above
 `public_html`).
 
+## 9. Google Search Console
+
+Keeps the site's Google history and tells Google about the new pages.
+
+1. **Verification** is already done: the old site's file
+   `googled81ec59a70fe429b.html` is included in the new site, so the existing
+   Search Console property keeps working. Check it opens at
+   `https://www.thehelsybentota.com/googled81ec59a70fe429b.html` after upload.
+2. In [Search Console](https://search.google.com/search-console) open the
+   property for `https://www.thehelsybentota.com/` → **Sitemaps** → enter
+   `sitemap.xml` → **Submit**.
+3. Use **URL inspection** on the home page → **Request indexing**.
+4. Old addresses (`Menu.php`, `Reservation.php`, `ContactUs.php` …) already
+   redirect to the new pages, so existing Google results keep working.
+
 ---
 
 ## Updating the website later
 
-Run `npm run build` again and upload the new `out/` contents to `public_html`
-(replace files). Bookings, settings, menu, photos and the config are stored
-outside `public_html`, so they are not affected.
+**Automatically (recommended):** merge or push to `main` on GitHub. The
+*Build and deploy* workflow (`.github/workflows/deploy.yml`) builds the site and
+uploads `out/` to `public_html` over FTP – only the files that changed. Pull
+requests to `main` are built but not uploaded. To deploy `main` again by hand:
+GitHub → **Actions → Build and deploy → Run workflow**.
+
+One-time setup:
+
+1. hPanel → **Files → FTP Accounts**: note the FTP host (IP or
+   `ftp.thehelsybentota.com`), username and password (reset it there if needed).
+2. GitHub repo → **Settings → Secrets and variables → Actions → New repository
+   secret**, and add `FTP_SERVER`, `FTP_USERNAME` and `FTP_PASSWORD`.
+3. Only if needed, on the **Variables** tab of the same page:
+   - `FTP_SERVER_DIR` – if the FTP account doesn't open in the folder that
+     contains `public_html`, the path to it, ending in `/`
+     (default `public_html/`).
+   - `FTP_PROTOCOL` – `ftp` if the upload fails with a TLS/FTPS error
+     (default `ftps`, which is encrypted).
+
+The first run uploads every file; after that only changes. The deploy keeps a
+file list in `public_html/.ftp-deploy-sync-state.json` – leave it there
+(`.htaccess` keeps it private). If you ever upload files by hand, delete that
+file so the next run uploads everything again.
+
+**By hand:** run `npm run build` again and upload the new `out/` contents to
+`public_html` (replace files).
+
+Either way, bookings, settings, menu, photos and the config are stored outside
+`public_html`, so they are not affected.
 
 ## Backups
 

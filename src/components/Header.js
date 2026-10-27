@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FiPhone } from 'react-icons/fi'
+import ExternalMark from './ExternalMark'
 import Img from './Img'
 import SocialLinks from './SocialLinks'
 import { externalProps, helsy, mainNav } from '@/data/site'
@@ -65,6 +66,7 @@ export default function Header() {
                 aria-current={isActive(l.href) ? 'page' : undefined}
               >
                 {l.label}
+                {l.external && <ExternalMark />}
               </NavLink>
               )
             })}
@@ -103,6 +105,7 @@ export default function Header() {
               style={{ '--i': i }}
             >
               {l.label}
+              {l.external && <ExternalMark />}
             </NavLink>
             )
           })}
