@@ -85,8 +85,16 @@ export default function HomePage() {
           className={styles.heroImg}
         />
         <div className={styles.heroContent}>
+          <h1 className={styles.heroBrand}>
+            <Img
+              src="/images/logo/helsy-logo-white.png"
+              alt="The Helsy Bentota"
+              sizes="(max-width: 600px) 64vw, 380px"
+              preload
+              className={styles.heroLogo}
+            />
+          </h1>
           <p className={styles.heroTag}>Stay · Care · British dining</p>
-          <h1 className={`display ${styles.heroTitle}`}>A private garden suite in Bentota</h1>
           <p className={styles.heroLead}>Home-cooked British food, a pool to relax by, and caring hands when you need them.</p>
           <ul className={styles.heroFacts}>
             <li>

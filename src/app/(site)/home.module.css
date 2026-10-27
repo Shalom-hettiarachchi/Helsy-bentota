@@ -47,7 +47,19 @@
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
 }
 
+.heroBrand {
+  line-height: 0;
+}
+
+.heroLogo {
+  width: min(380px, 64vw);
+  height: auto;
+  filter: drop-shadow(0 2px 14px rgba(0, 0, 0, 0.4));
+  animation: fade-up 1.2s var(--ease) 0.05s both;
+}
+
 .heroTag {
+  margin-top: clamp(18px, 2.6vw, 28px);
   font-size: clamp(0.72rem, 1.2vw, 0.82rem);
   font-weight: 500;
   letter-spacing: 0.32em;
@@ -56,15 +68,6 @@
   color: #e6d9a2;
   text-wrap: balance;
   animation: fade-up 1.2s var(--ease) 0.1s both;
-}
-
-.heroTitle {
-  max-width: 15ch;
-  margin-top: 18px;
-  font-size: clamp(2.4rem, 6vw, 4.8rem);
-  line-height: 1.05;
-  color: var(--white);
-  animation: fade-up 1.2s var(--ease) 0.2s both;
 }
 
 .heroLead {
@@ -103,6 +106,18 @@
 
 .heroFacts p {
   margin: 0;
+}
+
+/* On phones the three facts stack, so no dots between them */
+@media (max-width: 480px) {
+  .heroFacts {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .heroFacts li + li::before {
+    display: none;
+  }
 }
 
 .heroFacts strong {
