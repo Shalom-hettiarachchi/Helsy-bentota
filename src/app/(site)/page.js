@@ -85,14 +85,18 @@ export default function HomePage() {
           className={styles.heroImg}
         />
         <div className={styles.heroContent}>
-          <Img
-            src="/images/logo/helsy-logo-white.png"
-            alt="The Helsy Bentota"
-            sizes="(max-width: 600px) 72vw, 440px"
-            preload
-            className={styles.heroLogo}
-          />
-          <p className={styles.heroTag}>Stay · Care · British dining · Bentota</p>
+          <p className={styles.heroTag}>Stay · Care · British dining</p>
+          <h1 className={`display ${styles.heroTitle}`}>A private garden suite in Bentota</h1>
+          <p className={styles.heroLead}>Home-cooked British food, a pool to relax by, and caring hands when you need them.</p>
+          <ul className={styles.heroFacts}>
+            <li>
+              <FromPrice />
+            </li>
+            <li>Breakfast included</li>
+            <li>
+              <FiMapPin aria-hidden="true" /> Kommalta, Bentota
+            </li>
+          </ul>
           <div className={`btn-row ${styles.heroActions}`}>
             <Link href="/book" className="btn btn-light">
               Book Your Stay

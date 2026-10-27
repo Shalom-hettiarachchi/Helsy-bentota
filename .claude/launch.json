@@ -11,7 +11,7 @@
       "name": "helsy-api",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "api"],
-      "port": 8000
+      "port": 8787
     },
     {
       "name": "helsy-preview",

@@ -1178,6 +1178,11 @@ button.rowMain:hover strong {
   gap: 12px 24px;
 }
 
+.chartFigures {
+  display: flex;
+  gap: 28px;
+}
+
 .chartFigure {
   display: grid;
   text-align: right;

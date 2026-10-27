@@ -153,6 +153,16 @@ p {
   white-space: nowrap;
 }
 
+/* ↗ after links to other websites (components/ExternalMark.js) */
+.ext-mark {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-left: 0.2em;
+  vertical-align: -0.08em;
+  opacity: 0.7;
+}
+
 /* ------------------------------------------------------------------
    Layout helpers
 ------------------------------------------------------------------- */
@@ -465,8 +475,44 @@ p {
   background: rgba(0, 0, 0, 0.7);
 }
 
-.input:user-invalid {
+/* Field errors (see src/hooks/useValidation.js) */
+.input[aria-invalid='true'] {
   border-color: #e57373;
+  background: rgba(229, 115, 115, 0.06);
+}
+
+.input[aria-invalid='true']:focus {
+  box-shadow: 0 0 0 3px rgba(229, 115, 115, 0.22);
+}
+
+.field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: #ff8a80;
+  animation: field-error-in 0.25s var(--ease);
+}
+
+.field-error svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+}
+
+@keyframes field-error-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field-error {
+    animation: none;
+  }
 }
 
 textarea.input {

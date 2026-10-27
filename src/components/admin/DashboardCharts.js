@@ -27,6 +27,9 @@ export default function DashboardCharts({ charts, currency = 'LKR' }) {
   const pastYear = months.filter((m) => m.month <= currentMonth)
   const income12 = pastYear.reduce((s, m) => s + m.income, 0)
   const nights12 = pastYear.reduce((s, m) => s + m.nights, 0)
+  const comingUp = months.filter((m) => m.month > currentMonth)
+  const incomeAhead = comingUp.reduce((s, m) => s + m.income, 0)
+  const nightsAhead = comingUp.reduce((s, m) => s + m.nights, 0)
 
   const statusData = Object.entries(charts.status)
     .filter(([, n]) => n > 0)
@@ -44,9 +47,15 @@ export default function DashboardCharts({ charts, currency = 'LKR' }) {
             <h2 className={styles.cardTitle}>Income per month</h2>
             <p className={styles.muted}>Confirmed and completed stays, split by the nights in each month. Includes the next 3 months.</p>
           </div>
-          <div className={styles.chartFigure}>
-            <strong>{money(income12)}</strong>
-            <span>last 12 months</span>
+          <div className={styles.chartFigures}>
+            <div className={styles.chartFigure}>
+              <strong>{money(income12)}</strong>
+              <span>last 12 months</span>
+            </div>
+            <div className={styles.chartFigure}>
+              <strong>{money(incomeAhead)}</strong>
+              <span>next 3 months</span>
+            </div>
           </div>
         </div>
         <ChartContainer config={{ income: { label: 'Income', color: 'var(--gold)' } }}>
@@ -70,9 +79,15 @@ export default function DashboardCharts({ charts, currency = 'LKR' }) {
             <h2 className={styles.cardTitle}>Occupancy</h2>
             <p className={styles.muted}>Share of nights booked each month (confirmed and completed).</p>
           </div>
-          <div className={styles.chartFigure}>
-            <strong>{number(nights12)}</strong>
-            <span>nights booked, last 12 months</span>
+          <div className={styles.chartFigures}>
+            <div className={styles.chartFigure}>
+              <strong>{number(nights12)}</strong>
+              <span>nights, last 12 months</span>
+            </div>
+            <div className={styles.chartFigure}>
+              <strong>{number(nightsAhead)}</strong>
+              <span>nights, next 3 months</span>
+            </div>
           </div>
         </div>
         <ChartContainer config={{ occupancy: { label: 'Occupancy', color: 'var(--gold)' }, nights: { label: 'Nights' } }}>

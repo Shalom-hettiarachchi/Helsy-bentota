@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ExternalMark from './ExternalMark'
 import Img from './Img'
 import SocialLinks from './SocialLinks'
 import FooterContact from './FooterContact'
@@ -21,10 +22,11 @@ export default function Footer() {
           <h2 className={styles.title}>Explore</h2>
           <ul className={styles.links}>
             {footerNav.map((l) => (
-              <li key={l.href}>
+              <li key={l.label}>
                 {l.external ? (
                   <a href={l.href} {...externalProps}>
                     {l.label}
+                    <ExternalMark />
                   </a>
                 ) : (
                   <Link href={l.href}>{l.label}</Link>

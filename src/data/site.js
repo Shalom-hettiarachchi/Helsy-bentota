@@ -65,7 +65,7 @@ export const footerNav = [
   { href: '/about', label: 'About Us' },
   { href: '/contact', label: 'Contact Us' },
   { href: petesSiteUrl, label: "Pete's Meats", external: true },
-  { href: '/products', label: 'Shop Online' },
+  { href: petesSiteUrl, label: 'Shop Online', external: true },
 ]
 
 // "+94 77 690 9169" -> "tel:+94776909169"

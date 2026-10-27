@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { FiAlertCircle, FiArrowLeft, FiCalendar, FiCheck, FiUsers } from 'react-icons/fi'
 import { LuBedDouble } from 'react-icons/lu'
 import useSiteData from '@/hooks/useSiteData'
+import useValidation from '@/hooks/useValidation'
 import { api } from '@/lib/api'
 import { addDays, formatLong, formatMoney, formatShort, isValidISO, nightsBetween, todayISO } from '@/lib/dates'
 import { quoteStay } from '@/lib/pricing'
@@ -452,12 +453,15 @@ function StaySummary({ option, stay, adults, kids, currency, settings }) {
 function DetailsStep({ option, stay, adults, kids, currency, settings, onBack, onConflict, onDone }) {
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
+  const validation = useValidation()
 
   async function submit(e) {
     e.preventDefault()
-    const data = Object.fromEntries(new FormData(e.currentTarget).entries())
-    setSending(true)
+    const form = e.currentTarget
     setError('')
+    if (!validation.validate(form)) return
+    const data = Object.fromEntries(new FormData(form).entries())
+    setSending(true)
     try {
       const res = await api('book.php', {
         method: 'POST',
@@ -474,7 +478,7 @@ function DetailsStep({ option, stay, adults, kids, currency, settings, onBack, o
       onDone(res)
     } catch (err) {
       if (err.data?.code === 'unavailable') onConflict()
-      else setError(err.message)
+      else if (!(err.data?.field && validation.showError(form, err.data.field, err.message))) setError(err.message)
     } finally {
       setSending(false)
     }
@@ -487,24 +491,27 @@ function DetailsStep({ option, stay, adults, kids, currency, settings, onBack, o
           <FiArrowLeft /> Change dates or room
         </button>
         <h2 className={`display h3 ${styles.formTitle}`}>Your details</h2>
-        <form className="form-grid cols-2" onSubmit={submit}>
+        <form {...validation.formProps} className="form-grid cols-2" onSubmit={submit}>
           <label className="field span-2">
             <span className="field-label">
               Full name <span className="req">*</span>
             </span>
             <input className="input" name="name" autoComplete="name" required maxLength={160} />
+            {validation.error('name')}
           </label>
           <label className="field">
             <span className="field-label">
               Email <span className="req">*</span>
             </span>
             <input className="input" name="email" type="email" autoComplete="email" required maxLength={190} placeholder="example@email.com" />
+            {validation.error('email')}
           </label>
           <label className="field">
             <span className="field-label">
               Phone / WhatsApp <span className="req">*</span>
             </span>
             <input className="input" name="phone" type="tel" inputMode="tel" autoComplete="tel" required maxLength={60} placeholder="+44 …" />
+            {validation.error('phone')}
           </label>
           <label className="field">
             <span className="field-label">Country</span>

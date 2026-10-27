@@ -156,11 +156,12 @@ export default function AdminApp() {
     <AdminContext.Provider value={ctx}>
       <div className={styles.shell}>
         <aside className={styles.sidebar}>
-          <Link href="/" className={styles.brand}>
+          {/* Stays in the admin panel; "View website" below opens the site */}
+          <a href="#dashboard" className={styles.brand} aria-label="The Helsy admin – dashboard">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/logo/helsy-wordmark-white.png" alt="The Helsy" />
+            <img src="/images/logo/helsy-wordmark-white.png" alt="" />
             <span>Admin</span>
-          </Link>
+          </a>
           <nav className={styles.nav} aria-label="Admin sections">
             {SECTIONS.map(({ id, label, Icon }) => (
               <a key={id} href={`#${id}`} className={id === current.id ? styles.navActive : ''} aria-current={id === current.id ? 'page' : undefined}>
