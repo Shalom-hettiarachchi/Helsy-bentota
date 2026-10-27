@@ -20,6 +20,9 @@ ErrorDocument 404 /404.html
 
   # Old mail scripts and libraries are gone for good
   RewriteRule ^(email-send-process|reservations_email_send_process|reservation_client_email_process|PlaceOrder_email_send_process|PlaceOrder_client_email_process|PHPMailer|SMTP|POP3|OAuth|Exception|header|footer)\.php$ - [G,L]
+
+  # File list kept by the automatic deploy (.github/workflows/deploy.yml)
+  RewriteRule ^\.ftp-deploy-sync-state\.json$ - [F,L]
 </IfModule>
 
 <IfModule mod_headers.c>

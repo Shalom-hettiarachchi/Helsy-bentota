@@ -1,0 +1,76 @@
+# Builds the site and puts it live on Hostinger.
+#
+# - Push / merge to main  -> build, then upload out/ to public_html over FTP
+# - Pull request to main  -> build only (catches a broken build before it goes live)
+# - Actions tab -> "Build and deploy" -> Run workflow  -> deploy main again by hand
+#
+# Only out/ is uploaded. helsy-config.php and helsy-data (database, photos,
+# logs) live one folder above public_html and are never touched.
+#
+# Needs these repository secrets (Settings -> Secrets and variables -> Actions):
+#   FTP_SERVER    e.g. ftp.thehelsybentota.com or the IP from hPanel -> FTP Accounts
+#   FTP_USERNAME  e.g. u123456789.thehelsybentota.com
+#   FTP_PASSWORD  the FTP account's password
+# Optional repository variables (same page, "Variables" tab):
+#   FTP_SERVER_DIR  folder to upload into, relative to the FTP login folder (default: public_html/)
+#   FTP_PROTOCOL    ftps (default, encrypted) or ftp if the server refuses FTPS
+
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+# Never run two uploads at the same time; a newer push waits for the current one
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Check the build has what the server needs
+        run: |
+          for f in index.html .htaccess api/.htaccess api/book.php api/lib/bootstrap.php admin/index.html; do
+            test -f "out/$f" || { echo "::error::out/$f is missing from the build"; exit 1; }
+          done
+
+      - name: Upload to Hostinger
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          local-dir: ./out/
+          server-dir: ${{ vars.FTP_SERVER_DIR || 'public_html/' }}
+          # Only changed files are uploaded; files the site no longer has are
+          # removed. Never touch the fallback data folder or a local config.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            api/data/**
+            api/config.local.php
