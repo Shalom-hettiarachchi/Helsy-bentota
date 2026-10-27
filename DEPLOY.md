@@ -91,6 +91,21 @@ hPanel → **Security → SSL** → make sure the certificate is active and turn
 If emails don't arrive, look at `helsy-data/error.log` (one level above
 `public_html`).
 
+## 9. Google Search Console
+
+Keeps the site's Google history and tells Google about the new pages.
+
+1. **Verification** is already done: the old site's file
+   `googled81ec59a70fe429b.html` is included in the new site, so the existing
+   Search Console property keeps working. Check it opens at
+   `https://www.thehelsybentota.com/googled81ec59a70fe429b.html` after upload.
+2. In [Search Console](https://search.google.com/search-console) open the
+   property for `https://www.thehelsybentota.com/` → **Sitemaps** → enter
+   `sitemap.xml` → **Submit**.
+3. Use **URL inspection** on the home page → **Request indexing**.
+4. Old addresses (`Menu.php`, `Reservation.php`, `ContactUs.php` …) already
+   redirect to the new pages, so existing Google results keep working.
+
 ---
 
 ## Updating the website later

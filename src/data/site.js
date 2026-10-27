@@ -4,6 +4,11 @@
 
 export const siteUrl = 'https://www.thehelsybentota.com'
 
+// Google Search Console is verified with public/googled81ec59a70fe429b.html
+// (kept from the old site). Only fill this in if Google gives you a meta-tag
+// code instead: paste just the content="…" part.
+export const googleSiteVerification = ''
+
 // Pete's Meats has its own website; nav links open it in a new tab
 export const petesSiteUrl = 'https://petesmeats.lk/'
 

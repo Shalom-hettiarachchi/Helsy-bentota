@@ -1,12 +1,14 @@
 import OrderForm from './OrderForm'
 import styles from './order.module.css'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata = {
+export const metadata = pageMeta({
   title: 'Place Your Order',
-  description: "Order Pete's Meats for delivery – fresh, handcrafted meat products from Bentota. Cash on delivery available.",
-  alternates: { canonical: '/order/' },
-  robots: { index: false },
-}
+  description:
+    "Order Pete's Meats for delivery – fresh, handcrafted meat products from Bentota. Cash on delivery available.",
+  path: '/order',
+  noindex: true,
+})
 
 export default function OrderPage() {
   return (

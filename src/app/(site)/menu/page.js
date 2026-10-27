@@ -2,13 +2,15 @@ import Link from 'next/link'
 import PageHero from '@/components/PageHero'
 import MenuList from './MenuList'
 import styles from './menu.module.css'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata = {
+export const metadata = pageMeta({
   title: 'Menu',
   description:
     'The menu at The Helsy Bentota: homemade British classics, curries, grills and puddings, made with our own sausages, bacon and farm-fresh produce.',
-  alternates: { canonical: '/menu/' },
-}
+  path: '/menu',
+  image: { url: '/images/banners/menu-banner.webp', width: 2560, height: 900, alt: 'Food at The Helsy Bentota' },
+})
 
 export default function MenuPage() {
   return (

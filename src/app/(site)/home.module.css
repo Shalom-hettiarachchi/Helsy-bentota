@@ -47,10 +47,6 @@
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
 }
 
-.heroBrand {
-  line-height: 0;
-}
-
 .heroLogo {
   width: min(380px, 64vw);
   height: auto;
@@ -457,4 +453,10 @@
   --btn-bg: var(--black);
   --btn-fg: var(--white);
   --btn-border: var(--black);
+}
+
+.heroHeading {
+  margin: 0;
+  font-size: inherit;
+  line-height: 0;
 }

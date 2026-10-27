@@ -4,13 +4,15 @@ import ContactForm from '../contact/ContactForm'
 import { BookingContact } from '@/components/booking/BookingBits'
 import { careServices } from '@/data/care'
 import styles from './care.module.css'
+import { pageMeta } from '@/lib/seo'
 
-export const metadata = {
+export const metadata = pageMeta({
   title: 'Care Services – Residential, Dementia & Respite Care',
   description:
     'Residential care, dementia care, respite care and Ayurvedic medicine under consultant care at The Helsy Bentota, in a homely garden setting in Sri Lanka.',
-  alternates: { canonical: '/care/' },
-}
+  path: '/care',
+  image: { url: '/images/images/cs1.webp', width: 2560, height: 1707, alt: 'Care at The Helsy Bentota' },
+})
 
 const reasons = [
   'A small, homely setting – never a big institution',
