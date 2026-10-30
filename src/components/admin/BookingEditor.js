@@ -197,6 +197,8 @@ export default function BookingEditor({ booking, onClose, onSaved }) {
           </div>
         </fieldset>
 
+        {!isNew && <PaymentSection booking={booking} onSaved={onSaved} />}
+
         <fieldset className={styles.fieldset}>
           <legend>Guest</legend>
           <div className={styles.grid2}>
@@ -280,5 +282,75 @@ export default function BookingEditor({ booking, onClose, onSaved }) {
         </div>
       </form>
     </Modal>
+  )
+}
+
+// Paid or not, mark a bank transfer as paid, and the guest's payment link
+function PaymentSection({ booking, onSaved }) {
+  const { call, notify } = useAdmin()
+  const [busy, setBusy] = useState(false)
+  const paid = booking.paidAmount > 0 && booking.paidAmount >= booking.total
+  const how = booking.paymentMethod === 'card' ? 'by card (PayHere)' : 'by bank transfer'
+
+  async function setPaid(value) {
+    if (!value && !window.confirm(`Mark ${booking.ref} as not paid?`)) return
+    setBusy(true)
+    try {
+      const res = await call('booking_payment', { body: { id: booking.id, paid: value } })
+      notify(value ? `${booking.ref} marked as paid` : `${booking.ref} marked as not paid`)
+      onSaved(res.booking)
+    } catch (err) {
+      notify(err.message, 'error')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  async function copyLink() {
+    setBusy(true)
+    try {
+      const { url } = await call('booking_pay_link', { body: { id: booking.id } })
+      await navigator.clipboard.writeText(url)
+      notify('Payment link copied – paste it into WhatsApp or an email')
+    } catch (err) {
+      notify(err.message || 'Could not copy the link', 'error')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <fieldset className={styles.fieldset}>
+      <legend>Payment</legend>
+      {paid ? (
+        <p>
+          <strong className={styles.paidText}>Paid</strong> {formatMoney(booking.paidAmount, booking.currency)} {how}
+          {booking.paidAt && ` on ${booking.paidAt.slice(0, 10)}`}
+          {booking.paymentRef && <span className={styles.muted}> · ref {booking.paymentRef}</span>}
+        </p>
+      ) : (
+        <p>
+          <strong>Not paid</strong>
+          {booking.status === 'confirmed' && booking.paymentDue && ` · due by ${formatLong(booking.paymentDue)}`}
+          {booking.status === 'pending' && <span className={styles.muted}> · the guest gets payment details once you confirm</span>}
+        </p>
+      )}
+      <div className={styles.inline}>
+        {paid ? (
+          <button type="button" className={`btn btn-outline ${styles.btnSm}`} disabled={busy} onClick={() => setPaid(false)}>
+            Mark as not paid
+          </button>
+        ) : (
+          <button type="button" className={`btn btn-outline ${styles.btnSm}`} disabled={busy} onClick={() => setPaid(true)}>
+            Mark as paid (bank transfer)
+          </button>
+        )}
+        {!paid && booking.status === 'confirmed' && (
+          <button type="button" className={`btn btn-outline ${styles.btnSm}`} disabled={busy} onClick={copyLink}>
+            Copy payment link
+          </button>
+        )}
+      </div>
+    </fieldset>
   )
 }

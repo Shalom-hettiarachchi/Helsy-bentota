@@ -33,4 +33,15 @@ return [
             'pass' => 'email-account-password',
         ],
     ],
+
+    // Card payments through PayHere (optional). Leave out to offer bank
+    // transfer only. Sandbox keys come from sandbox.payhere.lk; for real
+    // payments use the live account's keys and set 'sandbox' => false.
+    // The Merchant Secret is per domain: PayHere → Integrations → add
+    // www.thehelsybentota.com and copy the secret it shows for it.
+    // 'payhere' => [
+    //     'merchant_id' => '1234567',
+    //     'merchant_secret' => 'secret-for-www.thehelsybentota.com',
+    //     'sandbox' => true,
+    // ],
 ];

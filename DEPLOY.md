@@ -106,6 +106,34 @@ Keeps the site's Google history and tells Google about the new pages.
 4. Old addresses (`Menu.php`, `Reservation.php`, `ContactUs.php` …) already
    redirect to the new pages, so existing Google results keep working.
 
+## 10. Payments (bank transfer and PayHere)
+
+Guests pay **after** a booking is confirmed. The "confirmed" email has a
+**How to pay** section and a private link to `/pay/`, which shows the booking,
+the amount, the due date and the ways to pay.
+
+- **Bank transfer:** Admin → Settings → **Payments** → fill in the bank
+  details and how many days before arrival payment is due (default 14; short-
+  notice bookings get 2 days). When the money arrives, open the booking and
+  click **Mark as paid (bank transfer)**.
+- **Card (PayHere):** off until its keys are in `helsy-config.php`:
+  1. Sign up at [sandbox.payhere.lk](https://sandbox.payhere.lk/merchant/sign-up)
+     (test account – no real money).
+  2. Sandbox portal → **Integrations** → add `www.thehelsybentota.com` →
+     wait for approval → copy the **Merchant ID** and the domain's
+     **Merchant Secret**.
+  3. Add them to `helsy-config.php` (see `payhere` in `config.sample.php`)
+     with `'sandbox' => true`. Admin → Settings → Payments then says
+     *On – sandbox test mode*.
+  4. Test with PayHere's test card `4916 2175 0161 1292` (any name, expiry
+     and CVV). The booking is marked **Paid** automatically and the owners
+     and guest get a receipt.
+  5. For real payments: repeat with the live PayHere account's keys and set
+     `'sandbox' => false`.
+
+The owners can also copy a booking's payment link (booking → **Copy payment
+link**) to send by WhatsApp.
+
 ---
 
 ## Updating the website later

@@ -378,6 +378,17 @@ button.rowMain:hover strong {
   color: #90caf9;
 }
 
+.badge_paid {
+  margin-left: 6px;
+  background: rgba(212, 192, 110, 0.16);
+  border-color: rgba(212, 192, 110, 0.55);
+  color: #e6d9a2;
+}
+
+.paidText {
+  color: #a5d6a7;
+}
+
 /* Toolbar, tabs, search */
 .toolbar {
   display: flex;

@@ -79,8 +79,9 @@ function notify_emails(): array
     return is_array($list) && $list ? $list : ['helsyofbentota@gmail.com'];
 }
 
-// Simple, mobile-friendly email layout. $rows = [label => value] shown as a table.
-function email_html(string $title, string $intro, array $rows = [], string $outro = ''): string
+// Simple, mobile-friendly email layout. $rows = [label => value] shown as a table;
+// $block = extra HTML under the table (e.g. how to pay).
+function email_html(string $title, string $intro, array $rows = [], string $outro = '', string $block = ''): string
 {
     $table = '';
     foreach ($rows as $label => $value) {
@@ -96,7 +97,8 @@ function email_html(string $title, string $intro, array $rows = [], string $outr
         . '<div style="background:#fff;padding:24px 26px;border-radius:0 0 8px 8px;font-size:15px;line-height:1.6;color:#333">'
         . '<p style="margin:0 0 16px">' . $intro . '</p>'
         . ($table ? '<table style="border-collapse:collapse;width:100%;font-size:14px">' . $table . '</table>' : '')
-        . ($outro ? '<p style="margin:18px 0 0">' . $outro . '</p>' : '')
+        . $block
+        . ($outro ?'<p style="margin:18px 0 0">' . $outro . '</p>' : '')
         . '</div><p style="font-size:12px;color:#999;text-align:center;margin-top:16px">'
         . 'The Helsy Bentota · 2km Post, Circular Road, Kommalta, Bentota 80500, Sri Lanka</p></div></body></html>';
 }

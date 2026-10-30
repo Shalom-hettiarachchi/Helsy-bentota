@@ -31,7 +31,15 @@ function GeneralSettings() {
     try {
       const { publicEmailsText, notifyEmailsText, ...rest } = f
       await call('settings_save', {
-        body: { settings: { ...rest, publicEmails: toList(publicEmailsText), notifyEmails: toList(notifyEmailsText), minNights: Number(f.minNights) } },
+        body: {
+          settings: {
+            ...rest,
+            publicEmails: toList(publicEmailsText),
+            notifyEmails: toList(notifyEmailsText),
+            minNights: Number(f.minNights),
+            paymentDueDays: Number(f.paymentDueDays),
+          },
+        },
       })
       await reloadRefs()
       notify('Settings saved')
@@ -102,6 +110,38 @@ function GeneralSettings() {
           <span className="field-label">Currency</span>
           <input className={`input ${styles.selectSm}`} required value={f.currency || 'LKR'} maxLength={5} onChange={set('currency')} />
         </label>
+      </fieldset>
+
+      <fieldset className={styles.fieldset}>
+        <legend>Payments</legend>
+        <p className={styles.muted}>
+          Card payments (PayHere):{' '}
+          <strong>
+            {settings.cardPayments === 'live'
+              ? 'On'
+              : settings.cardPayments === 'sandbox'
+                ? 'On – sandbox test mode (no real money)'
+                : 'Off – add the PayHere keys to helsy-config.php to switch them on'}
+          </strong>
+        </p>
+        <div className={styles.grid2}>
+          <label className="field">
+            <span className="field-label">Bank transfer details (sent only to guests with a confirmed booking)</span>
+            <textarea
+              className="input"
+              rows={5}
+              maxLength={1000}
+              value={f.bankDetails || ''}
+              placeholder={'Account name: …\nBank: …\nBranch: …\nAccount number: …\nSWIFT: …'}
+              onChange={set('bankDetails')}
+            />
+          </label>
+          <label className="field">
+            <span className="field-label">Payment due (days before arrival)</span>
+            <input className={`input ${styles.selectSm}`} type="number" min="0" max="90" value={f.paymentDueDays ?? 14} onChange={set('paymentDueDays')} />
+            <span className={styles.muted}>Bookings made at shorter notice get 2 days to pay.</span>
+          </label>
+        </div>
       </fieldset>
 
       <div className={styles.saveBar}>

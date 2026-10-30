@@ -15,7 +15,7 @@ $in = $method === 'POST' && $action !== 'upload' ? input() : [];
 
 $handlers = [
     'GET' => ['me', 'dashboard', 'bookings', 'calendar', 'rooms', 'seasons', 'menu', 'messages', 'settings', 'admins'],
-    'POST' => ['setup', 'login', 'logout', 'booking_save', 'booking_delete', 'block_save', 'block_delete', 'room_save',
+    'POST' => ['setup', 'login', 'logout', 'booking_save', 'booking_payment', 'booking_pay_link', 'booking_delete', 'block_save', 'block_delete', 'room_save',
         'seasons_save', 'menu_save', 'message_update', 'message_delete', 'settings_save', 'password_change',
         'admin_add', 'admin_delete', 'upload'],
 ];
@@ -314,6 +314,11 @@ function action_booking_save(array $in, array $admin): array
         throw $ex;
     }
 
+    // A confirmed booking gets its payment due date (again, if the dates moved)
+    if ($status === 'confirmed' && (!$old || $old['paymentDue'] === '' || $datesChanged)) {
+        db()->prepare('UPDATE bookings SET payment_due = ? WHERE id = ?')->execute([payment_due_for($checkIn), $id]);
+    }
+
     $booking = find_booking($id);
     $emailed = false;
     $statusChanged = !$old || $old['status'] !== $status;
@@ -338,13 +343,39 @@ function email_guest_status(array $b, array $room): bool
     if ($b['status'] === 'confirmed') {
         $subject = 'Your booking is confirmed (' . $b['ref'] . ')';
         $html = email_html('Your stay is confirmed', 'Good news, ' . e($b['name']) . ' – your booking at The Helsy Bentota is confirmed. We look forward to welcoming you.', $rows,
-            'Need anything before you arrive? Reply to this email' . ($contact ? ' or call ' . e($contact) : '') . '.');
+            'Need anything before you arrive? Reply to this email' . ($contact ? ' or call ' . e($contact) : '') . '.',
+            payment_email_html($b));
     } else {
         $subject = 'About your booking request (' . $b['ref'] . ')';
         $html = email_html('Booking update', 'Dear ' . e($b['name']) . ', unfortunately we are unable to confirm your booking for these dates, and it has been cancelled. We\'re sorry for any inconvenience.', $rows,
             'Please reply to this email' . ($contact ? ' or call ' . e($contact) : '') . ' – we\'d be happy to suggest other dates.');
     }
     return send_mail($b['email'], $subject, $html, notify_emails()[0] ?? null, 'The Helsy Bentota');
+}
+
+// Mark a booking paid by bank transfer (or undo it)
+function action_booking_payment(array $in, array $admin): array
+{
+    $b = find_booking((int)($in['id'] ?? 0));
+    if (!$b) fail('Booking not found.', 404);
+    if (v_bool($in, 'paid')) {
+        if (!is_paid($b)) {
+            db()->prepare("UPDATE bookings SET paid_amount = ?, paid_at = ?, payment_method = 'bank', payment_ref = ?, updated_at = ? WHERE id = ?")
+                ->execute([max(1, $b['total']), now(), v_str($in, 'paymentRef', 'the payment reference', 80, false), now(), $b['id']]);
+        }
+    } else {
+        db()->prepare("UPDATE bookings SET paid_amount = 0, paid_at = '', payment_method = '', payment_ref = '', updated_at = ? WHERE id = ?")
+            ->execute([now(), $b['id']]);
+    }
+    return ['booking' => find_booking($b['id'])];
+}
+
+// The guest's private payment link, to send by WhatsApp or email
+function action_booking_pay_link(array $in, array $admin): array
+{
+    $b = find_booking((int)($in['id'] ?? 0));
+    if (!$b) fail('Booking not found.', 404);
+    return ['url' => pay_url($b)];
 }
 
 function action_booking_delete(array $in, array $admin): array
@@ -519,8 +550,10 @@ function action_message_delete(array $in, array $admin): array
 ------------------------------------------------------------------- */
 function action_settings(array $in, array $admin): array
 {
-    $s = get_settings();
+    $s = get_settings() + ['bankDetails' => '', 'paymentDueDays' => 14];
     unset($s['schema_version']);
+    // Read-only: whether card payments are switched on in helsy-config.php
+    $s['cardPayments'] = payhere_enabled() ? (payhere_config()['sandbox'] ? 'sandbox' : 'live') : 'off';
     return ['settings' => $s];
 }
 
@@ -553,6 +586,8 @@ function action_settings_save(array $in, array $admin): array
         'checkOut' => v_str($s, 'checkOut', 'check-out time', 40),
         'bookingNote' => v_str($s, 'bookingNote', 'the booking note', 600, false),
         'currency' => strtoupper(v_str($s, 'currency', 'the currency', 5)),
+        'bankDetails' => v_str($s, 'bankDetails', 'the bank details', 1000, false),
+        'paymentDueDays' => v_int($s, 'paymentDueDays', 'days before arrival', 0, 90, 14),
     ];
     foreach ($clean as $k => $v) set_setting($k, $v);
     return action_settings([], $admin);
