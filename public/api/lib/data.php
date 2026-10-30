@@ -73,6 +73,11 @@ function save_room(array $r, ?PDO $pdo = null): int
     ), fn($f) => $f !== ''));
 
     $slug = strtolower(trim(preg_replace('/[^a-z0-9]+/i', '-', (string)($r['slug'] ?? $r['name'] ?? 'room')), '-')) ?: 'room';
+    // Each room gets its own slug (the Stay page links to #slug): standard-room, standard-room-2 …
+    $taken = $pdo->prepare('SELECT COUNT(*) FROM rooms WHERE slug = ? AND id <> ?');
+    for ($base = $slug, $n = 2; $taken->execute([$slug, (int)($r['id'] ?? 0)]) && $taken->fetchColumn() > 0; $n++) {
+        $slug = "$base-$n";
+    }
     $vals = [
         $slug,
         (string)$r['name'],
