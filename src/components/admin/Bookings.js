@@ -1,10 +1,10 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { LuFileSpreadsheet, LuPlus, LuSearch } from 'react-icons/lu'
+import { LuEye, LuFileSpreadsheet, LuPlus, LuSearch } from 'react-icons/lu'
 import { formatMoney, formatShort } from '@/lib/dates'
-import { useAdmin } from './context'
-import { Empty, Loading, Modal, StatusBadge } from './ui'
+import { STATUS_LABELS, useAdmin } from './context'
+import { Empty, Loading, Modal } from './ui'
 import { downloadBookingsExcel } from './exportExcel'
 import BookingEditor from './BookingEditor'
 import styles from './admin.module.css'
@@ -38,6 +38,13 @@ export default function Bookings() {
   }, [call, notify, filter, search])
 
   useEffect(load, [load])
+
+  // Keep the row if it still belongs on this tab, otherwise it moves off the list
+  function statusChanged(updated) {
+    const stays =
+      filter === 'all' || filter === updated.status || (filter === 'upcoming' && ['pending', 'confirmed'].includes(updated.status))
+    setList((prev) => (stays ? prev.map((b) => (b.id === updated.id ? updated : b)) : prev.filter((b) => b.id !== updated.id)))
+  }
 
   return (
     <div className={styles.stack}>
@@ -83,6 +90,7 @@ export default function Bookings() {
                   <th>Total</th>
                   <th>Status</th>
                   <th>Ref</th>
+                  <th aria-label="Actions" />
                 </tr>
               </thead>
               <tbody>
@@ -104,11 +112,23 @@ export default function Bookings() {
                     </td>
                     <td data-label="Total">{formatMoney(b.total, b.currency)}</td>
                     <td data-label="Status">
-                      <StatusBadge status={b.status} />
+                      <StatusSelect booking={b} onChanged={statusChanged} />
                       {b.paidAmount > 0 && b.paidAmount >= b.total && <span className={`${styles.badge} ${styles.badge_paid}`}>Paid</span>}
                     </td>
                     <td data-label="Ref" className={styles.muted}>
                       {b.ref}
+                    </td>
+                    <td className={styles.actionsCell}>
+                      <button
+                        type="button"
+                        className={`btn btn-outline ${styles.btnSm}`}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setEditing(b)
+                        }}
+                      >
+                        <LuEye aria-hidden="true" /> View
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -131,6 +151,55 @@ export default function Bookings() {
         />
       )}
     </div>
+  )
+}
+
+// Change a booking's status from the list. Confirming or cancelling emails the
+// guest, so those two ask first.
+function StatusSelect({ booking, onChanged }) {
+  const { call, notify } = useAdmin()
+  const [busy, setBusy] = useState(false)
+
+  async function change(status) {
+    if (status === 'confirmed' || status === 'cancelled') {
+      const verb = status === 'confirmed' ? 'Confirm' : 'Cancel'
+      const email = booking.email ? ` ${booking.email} will be emailed.` : ' This guest has no email address, so nobody will be emailed.'
+      if (!window.confirm(`${verb} booking ${booking.ref} for ${booking.name}?${email}`)) return
+    }
+    setBusy(true)
+    try {
+      const res = await call('booking_save', { body: { ...booking, status, notifyGuest: true } })
+      const failed = booking.email && (status === 'confirmed' || status === 'cancelled') && !res.emailed
+      notify(
+        failed
+          ? `${booking.ref} is ${STATUS_LABELS[status].toLowerCase()}, but the email to the guest could not be sent`
+          : `${booking.ref} is now ${STATUS_LABELS[status].toLowerCase()}${res.emailed ? ' – guest emailed' : ''}`,
+        failed ? 'error' : 'ok',
+      )
+      onChanged(res.booking)
+    } catch (err) {
+      notify(err.message, 'error')
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  return (
+    <select
+      className={`${styles.badge} ${styles[`badge_${booking.status}`] || ''} ${styles.statusSelect}`}
+      value={booking.status}
+      disabled={busy}
+      aria-label={`Status of booking ${booking.ref}`}
+      onClick={(e) => e.stopPropagation()}
+      onKeyDown={(e) => e.stopPropagation()}
+      onChange={(e) => change(e.target.value)}
+    >
+      {Object.entries(STATUS_LABELS).map(([value, label]) => (
+        <option key={value} value={value}>
+          {label}
+        </option>
+      ))}
+    </select>
   )
 }
 
