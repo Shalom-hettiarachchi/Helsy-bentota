@@ -12,6 +12,7 @@ require __DIR__ . '/db.php';
 require __DIR__ . '/data.php';
 require __DIR__ . '/pricing.php';
 require __DIR__ . '/mailer.php';
+require __DIR__ . '/payments.php';
 
 /* ------------------------------------------------------------------
    Config
@@ -48,6 +49,13 @@ function helsy_config(): array
             'from_email' => '',
             'from_name' => 'The Helsy Bentota',
             'smtp' => ['host' => '', 'port' => 465, 'secure' => 'ssl', 'user' => '', 'pass' => ''],
+        ],
+        // Card payments through PayHere. Off until both keys are filled in.
+        // sandbox = true uses sandbox.payhere.lk (test cards, no real money).
+        'payhere' => [
+            'merchant_id' => '',
+            'merchant_secret' => '',
+            'sandbox' => true,
         ],
     ];
 

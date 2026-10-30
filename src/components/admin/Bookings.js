@@ -105,6 +105,7 @@ export default function Bookings() {
                     <td data-label="Total">{formatMoney(b.total, b.currency)}</td>
                     <td data-label="Status">
                       <StatusBadge status={b.status} />
+                      {b.paidAmount > 0 && b.paidAmount >= b.total && <span className={`${styles.badge} ${styles.badge_paid}`}>Paid</span>}
                     </td>
                     <td data-label="Ref" className={styles.muted}>
                       {b.ref}

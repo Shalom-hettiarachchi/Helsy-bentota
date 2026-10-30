@@ -3,7 +3,7 @@
 // MySQL (set 'db' => ['driver' => 'mysql', ...] in the config).
 defined('HELSY_API') || exit;
 
-const SCHEMA_VERSION = 1;
+const SCHEMA_VERSION = 2;
 
 function db(): PDO
 {
@@ -99,9 +99,29 @@ function db_migrate(PDO $pdo): void
             phone VARCHAR(60) NOT NULL, subject VARCHAR(200) NOT NULL, body TEXT NOT NULL, data TEXT NOT NULL,
             status VARCHAR(20) NOT NULL, ip VARCHAR(45) NOT NULL, created_at VARCHAR(19) NOT NULL)",
         "throttle ($id, k VARCHAR(120) NOT NULL, at INT NOT NULL)",
+        // Every payment notification PayHere sends, kept as a record
+        "payments ($id, booking_id INT NOT NULL, provider VARCHAR(20) NOT NULL, provider_ref VARCHAR(80) NOT NULL,
+            order_id VARCHAR(40) NOT NULL, amount INT NOT NULL, currency VARCHAR(8) NOT NULL, status VARCHAR(20) NOT NULL,
+            method VARCHAR(20) NOT NULL, message VARCHAR(255) NOT NULL, created_at VARCHAR(19) NOT NULL)",
     ];
     foreach ($tables as $t) {
         $pdo->exec('CREATE TABLE IF NOT EXISTS ' . $t . $end);
+    }
+
+    // Columns added after the first version (schema 2: payments)
+    $bookingCols = [
+        'pay_token' => "VARCHAR(40) NOT NULL DEFAULT ''",
+        'payment_due' => "VARCHAR(10) NOT NULL DEFAULT ''",
+        'paid_amount' => 'INT NOT NULL DEFAULT 0',
+        'paid_at' => "VARCHAR(19) NOT NULL DEFAULT ''",
+        'payment_method' => "VARCHAR(20) NOT NULL DEFAULT ''",
+        'payment_ref' => "VARCHAR(80) NOT NULL DEFAULT ''",
+    ];
+    $have = $mysql
+        ? array_column($pdo->query('SHOW COLUMNS FROM bookings')->fetchAll(), 'Field')
+        : array_column($pdo->query('PRAGMA table_info(bookings)')->fetchAll(), 'name');
+    foreach ($bookingCols as $col => $def) {
+        if (!in_array($col, $have, true)) $pdo->exec("ALTER TABLE bookings ADD COLUMN $col $def");
     }
 
     $indexes = [
@@ -110,6 +130,7 @@ function db_migrate(PDO $pdo): void
         'idx_blocks_dates ON blocks (room_id, start_date, end_date)',
         'idx_messages_status ON messages (status, created_at)',
         'idx_throttle_k ON throttle (k, at)',
+        'idx_payments_booking ON payments (booking_id)',
     ];
     foreach ($indexes as $ix) {
         try {

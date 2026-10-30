@@ -1,0 +1,146 @@
+.page {
+  padding: calc(var(--header-h) + clamp(40px, 6vw, 72px)) 0 var(--section);
+}
+
+.narrow {
+  max-width: 760px;
+}
+
+.heading {
+  margin-bottom: clamp(24px, 4vw, 36px);
+}
+
+.muted {
+  color: var(--text-soft);
+}
+
+.card {
+  padding: clamp(20px, 3vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.card + .card {
+  margin-top: 18px;
+}
+
+.card h2 {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 22px;
+  margin: 0;
+}
+
+.summary dt {
+  color: var(--text-faint);
+}
+
+.summary dd {
+  margin: 0;
+}
+
+.total {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.total strong {
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.notice {
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--line-strong);
+  margin-bottom: 18px;
+}
+
+.ok {
+  border-color: rgba(129, 199, 132, 0.55);
+  background: rgba(129, 199, 132, 0.1);
+}
+
+.warn {
+  border-color: rgba(255, 183, 77, 0.55);
+  background: rgba(255, 183, 77, 0.08);
+}
+
+.notice p {
+  margin: 0;
+}
+
+.notice p + p {
+  margin-top: 6px;
+}
+
+.due {
+  margin: 0 0 16px;
+}
+
+.payBtn {
+  width: 100%;
+  justify-content: center;
+}
+
+.small {
+  margin: 10px 0 0;
+  font-size: var(--fs-small);
+  color: var(--text-faint);
+}
+
+.bank {
+  margin: 0 0 12px;
+  padding: 14px 16px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.92rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.or {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 22px 0;
+  color: var(--text-faint);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.or::before,
+.or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+@media (max-width: 480px) {
+  .summary {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .summary dd {
+    margin-bottom: 8px;
+  }
+}

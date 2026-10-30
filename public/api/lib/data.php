@@ -244,6 +244,11 @@ function booking_out(array $b): array
         'status' => $b['status'],
         'adminNote' => $b['admin_note'],
         'source' => $b['source'],
+        'paymentDue' => (string)($b['payment_due'] ?? ''),
+        'paidAmount' => (int)($b['paid_amount'] ?? 0),
+        'paidAt' => (string)($b['paid_at'] ?? ''),
+        'paymentMethod' => (string)($b['payment_method'] ?? ''),
+        'paymentRef' => (string)($b['payment_ref'] ?? ''),
         'createdAt' => $b['created_at'],
         'updatedAt' => $b['updated_at'],
     ];
