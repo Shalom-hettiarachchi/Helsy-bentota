@@ -14,6 +14,9 @@ export default function sitemap() {
     { path: '/contact/', priority: 0.7 },
     { path: '/petes-meats/', priority: 0.7 },
     { path: '/products/', priority: 0.7 },
+    { path: '/terms/', priority: 0.3 },
+    { path: '/cancellation-policy/', priority: 0.3 },
+    { path: '/privacy/', priority: 0.3 },
   ]
   return pages.map(({ path, priority }) => ({
     url: `${siteUrl}${path}`,

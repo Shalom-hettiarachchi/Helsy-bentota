@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { FiCheckCircle, FiCreditCard, FiLock } from 'react-icons/fi'
 import { api } from '@/lib/api'
@@ -191,6 +192,9 @@ export default function PayPanel() {
             <p>Please call us on {data.phone} and we&apos;ll help you pay.</p>
           )}
 
+          <p className={styles.small}>
+            Cancellations and refunds: see our <Link href="/cancellation-policy">Cancellation &amp; Refund Policy</Link>.
+          </p>
           <p className={styles.small}>
             Our bank details will never change by email. If you receive a message saying otherwise, please call us on {data.phone} before paying.
           </p>
