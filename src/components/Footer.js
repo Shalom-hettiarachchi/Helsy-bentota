@@ -56,7 +56,10 @@ export default function Footer() {
 
       <div className={`container ${styles.bottom}`}>
         <p>© {new Date().getFullYear()} The Helsy Bentota. All rights reserved.</p>
-        <p>Terms &amp; Conditions · Privacy Policy · Powered by Curl</p>
+        <p className={styles.legal}>
+          <Link href="/terms">Terms &amp; Conditions</Link> · <Link href="/cancellation-policy">Cancellation Policy</Link> ·{' '}
+          <Link href="/privacy">Privacy Policy</Link> · Powered by Curl
+        </p>
       </div>
     </footer>
   )

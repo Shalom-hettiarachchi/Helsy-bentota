@@ -536,6 +536,10 @@ function DetailsStep({ option, stay, adults, kids, currency, settings, onBack, o
             <input name="website" tabIndex={-1} autoComplete="off" />
           </label>
           {settings.bookingNote && <p className="form-note span-2">{settings.bookingNote}</p>}
+          <p className="form-note span-2">
+            By sending a request you agree to our <Link href="/terms">Terms &amp; Conditions</Link> and{' '}
+            <Link href="/cancellation-policy">Cancellation Policy</Link>.
+          </p>
           <div className="span-2">
             <button className="btn btn-light btn-block" type="submit" disabled={sending}>
               {sending ? 'Sending…' : 'Send booking request'}
