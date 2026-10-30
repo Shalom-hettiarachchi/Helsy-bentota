@@ -16,19 +16,45 @@ function move(list, i, dir) {
   return next
 }
 
+// Starting values for a room added in the admin. It stays off the website
+// until "Bookable on the website" is ticked.
+const NEW_ROOM = {
+  id: null,
+  name: '',
+  summary: '',
+  description: '',
+  features: ['Breakfast included'],
+  capacityNote: '',
+  maxGuests: 2,
+  maxExtraBeds: 0,
+  extraBedPrice: 0,
+  offRate: '',
+  peakRate: '',
+  images: [],
+  active: false,
+}
+
 export default function RoomsEditor() {
   const { rooms } = useAdmin()
+  const [adding, setAdding] = useState(false)
   return (
     <div className={styles.stack}>
       {rooms.map((r) => (
         <RoomForm key={r.id} room={r} />
       ))}
+      {adding ? (
+        <RoomForm room={{ ...NEW_ROOM, position: rooms.length }} onDone={() => setAdding(false)} />
+      ) : (
+        <button type="button" className={`btn btn-outline ${styles.btnSm}`} onClick={() => setAdding(true)}>
+          <LuPlus /> Add room
+        </button>
+      )}
       <SeasonsForm />
     </div>
   )
 }
 
-function RoomForm({ room }) {
+function RoomForm({ room, onDone }) {
   const { call, notify, reloadRefs, settings } = useAdmin()
   const [f, setF] = useState(() => ({ ...room, featuresText: room.features.join('\n') }))
   const [saving, setSaving] = useState(false)
@@ -80,6 +106,11 @@ function RoomForm({ room }) {
         },
       })
       await reloadRefs()
+      if (!room.id) {
+        notify(f.active ? 'Room added – it is on the website now' : 'Room added – tick "Bookable on the website" when it is ready')
+        onDone?.()
+        return
+      }
       notify('Room saved – the website shows the changes now')
     } catch (err) {
       notify(err.message, 'error')
@@ -90,7 +121,7 @@ function RoomForm({ room }) {
 
   return (
     <form className={styles.card} onSubmit={save}>
-      <h2 className={styles.cardTitle}>{room.name}</h2>
+      <h2 className={styles.cardTitle}>{room.id ? room.name : 'New room'}</h2>
 
       <fieldset className={styles.fieldset}>
         <legend>Rates per night ({currency})</legend>
@@ -191,8 +222,13 @@ function RoomForm({ room }) {
 
       <div className={styles.saveBar}>
         <button type="submit" className="btn btn-light" disabled={saving || uploading}>
-          {saving ? 'Saving…' : 'Save room'}
+          {saving ? 'Saving…' : room.id ? 'Save room' : 'Add room'}
         </button>
+        {!room.id && (
+          <button type="button" className="btn btn-outline" onClick={onDone} disabled={saving}>
+            Cancel
+          </button>
+        )}
       </div>
     </form>
   )
