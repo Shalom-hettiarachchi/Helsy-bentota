@@ -389,6 +389,37 @@ button.rowMain:hover strong {
   color: #a5d6a7;
 }
 
+/* Status dropdown in the bookings list (looks like its badge) */
+.statusSelect {
+  padding-right: 24px;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(-45deg, transparent 50%, currentColor 50%);
+  background-position: right 13px center, right 9px center;
+  background-size: 4px 4px;
+  background-repeat: no-repeat;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.statusSelect:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.statusSelect option {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.actionsCell {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.table td.actionsCell::before {
+  content: none;
+}
+
 /* Toolbar, tabs, search */
 .toolbar {
   display: flex;
