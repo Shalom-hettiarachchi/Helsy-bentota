@@ -12,7 +12,7 @@ import styles from './home.module.css'
 export const metadata = pageMeta({
   title: { absolute: 'The Helsy Bentota – Stay, Care & British Dining in Bentota' },
   description:
-    'A self-contained two-bedroom suite with garden and pool views, residential, dementia and respite care, and homemade British food on our family farm in Bentota, Sri Lanka.',
+    'A self-contained two-bedroom suite with garden and pool views, residential and respite care, relaxing long stays, and homemade British food on our family farm in Bentota, Sri Lanka.',
   path: '/',
 })
 
@@ -33,7 +33,7 @@ const highlights = [
   {
     Icon: LuHeartHandshake,
     title: 'Care with heart',
-    text: 'Residential, dementia and respite care, plus Ayurvedic medicine under consultant care.',
+    text: 'Residential and respite care, and relaxing long stays with plenty of garden space.',
   },
   {
     Icon: LuSprout,
@@ -57,7 +57,7 @@ const jsonLd = {
     `${siteUrl}/images/images/gal5.webp`,
   ],
   logo: `${siteUrl}/images/logo/helsy-logo-white.png`,
-  telephone: '+94776909169',
+  telephone: '+94772207705',
   email: helsy.email,
   servesCuisine: ['British', 'Sri Lankan'],
   hasMenu: `${siteUrl}/menu/`,
@@ -237,7 +237,7 @@ export default function HomePage() {
                 <li key={s.id}>
                   <Link href={`/care#${s.id}`}>
                     <s.Icon aria-hidden="true" />
-                    <span>{s.title === 'Ayurvedic Medicine' ? 'Ayurvedic medicine under consultant care' : s.title}</span>
+                    <span>{s.title}</span>
                   </Link>
                 </li>
               ))}

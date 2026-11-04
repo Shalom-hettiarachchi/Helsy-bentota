@@ -63,7 +63,7 @@ function GeneralSettings() {
           </label>
           <label className="field">
             <span className="field-label">Booking phone number</span>
-            <input className="input" required value={f.bookingPhone || ''} maxLength={60} placeholder="+94 77 690 9169" onChange={set('bookingPhone')} />
+            <input className="input" required value={f.bookingPhone || ''} maxLength={60} placeholder="+94 77 220 7705" onChange={set('bookingPhone')} />
           </label>
         </div>
       </fieldset>

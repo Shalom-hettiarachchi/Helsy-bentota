@@ -24,7 +24,7 @@ export const metadata = {
     template: '%s | The Helsy Bentota',
   },
   description:
-    'The Helsy Bentota: a self-contained holiday suite, residential, dementia and respite care, and homemade British food on our family farm in Bentota, Sri Lanka.',
+    'The Helsy Bentota: a self-contained holiday suite, residential and respite care, relaxing long stays, and homemade British food on our family farm in Bentota, Sri Lanka.',
   applicationName: helsy.name,
   ...(googleSiteVerification ? { verification: { google: googleSiteVerification } } : {}),
   icons: { icon: '/images/logo/helsy-icon.svg' },

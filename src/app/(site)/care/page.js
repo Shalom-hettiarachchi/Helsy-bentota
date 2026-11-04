@@ -7,9 +7,9 @@ import styles from './care.module.css'
 import { pageMeta } from '@/lib/seo'
 
 export const metadata = pageMeta({
-  title: 'Care Services – Residential, Dementia & Respite Care',
+  title: 'Care Services – Residential Care, Respite Care & Long Stays',
   description:
-    'Residential care, dementia care, respite care and Ayurvedic medicine under consultant care at The Helsy Bentota, in a homely garden setting in Sri Lanka.',
+    'Residential care, respite care and relaxing long stays at The Helsy Bentota, with four acres of peaceful tropical garden in Bentota, Sri Lanka.',
   path: '/care',
   image: { url: '/images/images/cs1.webp', width: 2560, height: 1707, alt: 'Care at The Helsy Bentota' },
 })
@@ -42,8 +42,8 @@ export default function CarePage() {
             <p className="eyebrow">What We Offer</p>
             <h2 className="display h2">Our care services</h2>
             <p className="lead">
-              Whether it’s a long stay, specialist dementia support or a short break for family carers, we provide
-              personal, compassionate care in a warm home surrounded by nature.
+              Whether it’s a long, relaxing stay, a home for good or a short break for family carers, we provide
+              personal, friendly care in a warm home with plenty of garden space.
             </p>
           </div>
 
@@ -70,7 +70,7 @@ export default function CarePage() {
           </div>
           <div>
             <p className="eyebrow">Why Families Choose Us</p>
-            <h2 className="display h2">A home, not a hospital</h2>
+            <h2 className="display h2">Peaceful, relaxed and homely</h2>
             <hr className="rule" />
             <ul className={styles.reasons}>
               {reasons.map((r) => (
@@ -96,7 +96,7 @@ export default function CarePage() {
           <div className="panel">
             <ContactForm
               type="care"
-              subjectOptions={['Residential Care', 'Dementia Care', 'Respite Care', 'Ayurvedic medicine', 'General care enquiry']}
+              subjectOptions={['Residential Care', 'Long Stay', 'Respite Care', 'General care enquiry']}
             />
           </div>
         </div>
