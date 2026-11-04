@@ -124,17 +124,29 @@ function GeneralSettings() {
                 : 'Off – add the PayHere keys to helsy-config.php to switch them on'}
           </strong>
         </p>
+        <p className={styles.muted}>
+          Bank transfer details are sent only to guests with a confirmed booking. Leave the account number empty to hide bank transfer.
+        </p>
         <div className={styles.grid2}>
           <label className="field">
-            <span className="field-label">Bank transfer details (sent only to guests with a confirmed booking)</span>
-            <textarea
-              className="input"
-              rows={5}
-              maxLength={1000}
-              value={f.bankDetails || ''}
-              placeholder={'Account name: …\nBank: …\nBranch: …\nAccount number: …\nSWIFT: …'}
-              onChange={set('bankDetails')}
-            />
+            <span className="field-label">Account name</span>
+            <input className="input" value={f.bankAccountName || ''} maxLength={120} placeholder="e.g. The Helsy Bentota" onChange={set('bankAccountName')} />
+          </label>
+          <label className="field">
+            <span className="field-label">Account number</span>
+            <input className="input" value={f.bankAccountNumber || ''} maxLength={60} inputMode="numeric" onChange={set('bankAccountNumber')} />
+          </label>
+          <label className="field">
+            <span className="field-label">Bank</span>
+            <input className="input" value={f.bankName || ''} maxLength={120} placeholder="e.g. Bank of Ceylon" onChange={set('bankName')} />
+          </label>
+          <label className="field">
+            <span className="field-label">Branch</span>
+            <input className="input" value={f.bankBranch || ''} maxLength={120} placeholder="e.g. Bentota" onChange={set('bankBranch')} />
+          </label>
+          <label className="field">
+            <span className="field-label">SWIFT code (for payments from abroad)</span>
+            <input className="input" value={f.bankSwift || ''} maxLength={11} placeholder="e.g. BCEYLKLX" onChange={set('bankSwift')} />
           </label>
           <label className="field">
             <span className="field-label">Payment due (days before arrival)</span>
@@ -142,6 +154,17 @@ function GeneralSettings() {
             <span className={styles.muted}>Bookings made at shorter notice get 2 days to pay.</span>
           </label>
         </div>
+        <label className="field">
+          <span className="field-label">Note for guests (optional, shown under the bank details)</span>
+          <textarea
+            className="input"
+            rows={2}
+            maxLength={600}
+            value={f.bankNote || ''}
+            placeholder={'e.g. Paying from abroad? Send the exact LKR amount and choose "OUR" charges, or use Wise.'}
+            onChange={set('bankNote')}
+          />
+        </label>
       </fieldset>
 
       <div className={styles.saveBar}>

@@ -550,7 +550,8 @@ function action_message_delete(array $in, array $admin): array
 ------------------------------------------------------------------- */
 function action_settings(array $in, array $admin): array
 {
-    $s = get_settings() + ['bankDetails' => '', 'paymentDueDays' => 14];
+    $s = get_settings() + array_fill_keys([...array_keys(BANK_FIELDS), 'bankNote'], '') + ['paymentDueDays' => 14];
+    unset($s['bankDetails']); // replaced by the separate bank fields
     unset($s['schema_version']);
     // Read-only: whether card payments are switched on in helsy-config.php
     $s['cardPayments'] = payhere_enabled() ? (payhere_config()['sandbox'] ? 'sandbox' : 'live') : 'off';
@@ -586,7 +587,12 @@ function action_settings_save(array $in, array $admin): array
         'checkOut' => v_str($s, 'checkOut', 'check-out time', 40),
         'bookingNote' => v_str($s, 'bookingNote', 'the booking note', 600, false),
         'currency' => strtoupper(v_str($s, 'currency', 'the currency', 5)),
-        'bankDetails' => v_str($s, 'bankDetails', 'the bank details', 1000, false),
+        'bankAccountName' => v_str($s, 'bankAccountName', 'the account name', 120, false),
+        'bankName' => v_str($s, 'bankName', 'the bank name', 120, false),
+        'bankBranch' => v_str($s, 'bankBranch', 'the branch', 120, false),
+        'bankAccountNumber' => v_str($s, 'bankAccountNumber', 'the account number', 60, false),
+        'bankSwift' => strtoupper(v_str($s, 'bankSwift', 'the SWIFT code', 11, false)),
+        'bankNote' => v_str($s, 'bankNote', 'the note for guests', 600, false),
         'paymentDueDays' => v_int($s, 'paymentDueDays', 'days before arrival', 0, 90, 14),
     ];
     foreach ($clean as $k => $v) set_setting($k, $v);

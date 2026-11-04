@@ -51,11 +51,34 @@ const PAYHERE_STATUS = ['2' => 'success', '0' => 'pending', '-1' => 'cancelled',
 /* ------------------------------------------------------------------
    Payment details for a booking
 ------------------------------------------------------------------- */
+// The bank fields from Settings, with the label each gets in emails and on the payment page
+const BANK_FIELDS = [
+    'bankAccountName' => 'Account name',
+    'bankName' => 'Bank',
+    'bankBranch' => 'Branch',
+    'bankAccountNumber' => 'Account number',
+    'bankSwift' => 'SWIFT code',
+];
+
+// The bank details as guests see them: one "Label: value" line per filled-in
+// field, then the optional note. Empty when no account number is set.
+function bank_details_text(array $s): string
+{
+    if (trim((string)($s['bankAccountNumber'] ?? '')) === '') return '';
+    $lines = [];
+    foreach (BANK_FIELDS as $k => $label) {
+        $v = trim((string)($s[$k] ?? ''));
+        if ($v !== '') $lines[] = "$label: $v";
+    }
+    $note = trim((string)($s['bankNote'] ?? ''));
+    return implode("\n", $lines) . ($note !== '' ? "\n\n$note" : '');
+}
+
 function payment_settings(): array
 {
     $s = get_settings();
     return [
-        'bankDetails' => trim((string)($s['bankDetails'] ?? '')),
+        'bankDetails' => bank_details_text($s),
         'dueDays' => max(0, (int)($s['paymentDueDays'] ?? 14)),
     ];
 }
