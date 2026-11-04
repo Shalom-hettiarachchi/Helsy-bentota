@@ -64,7 +64,7 @@ export default function PetesMeatsPage() {
         <ul className={styles.strip}>
           <li>Pete’s Meats – Just like Mum makes</li>
           <li>
-            <a href={petes.phoneHref}>Call us now – [+94] 77 631 7411</a>
+            <a href={petes.phoneHref}>Call us now – [+94] 77 220 7705</a>
           </li>
           <li>Taste the difference – call &amp; order now!</li>
         </ul>

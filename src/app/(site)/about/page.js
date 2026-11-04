@@ -82,8 +82,8 @@ export default function AboutPage() {
               </p>
               <p>
                 Today we welcome guests to our Self-Contained Upstairs Suite, overlooking the garden and pool, and we
-                care for those who wish to stay with us for longer – through residential, dementia and respite care,
-                with Ayurvedic medicine under consultant care – in our tropical paradise near the Indian Ocean, on my
+                care for those who wish to stay with us for longer – through residential care, respite care and relaxing
+                long stays – in our tropical paradise near the Indian Ocean, on my
                 ancestral land.
               </p>
             </div>

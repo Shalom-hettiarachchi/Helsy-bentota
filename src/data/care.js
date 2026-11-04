@@ -1,5 +1,5 @@
 // Care services offered at The Helsy Bentota.
-import { LuHeartHandshake, LuHouse, LuLeaf, LuSunrise } from 'react-icons/lu'
+import { LuCalendarHeart, LuHouse, LuSunrise, LuTreePalm } from 'react-icons/lu'
 
 export const careServices = [
   {
@@ -9,10 +9,10 @@ export const careServices = [
     text: 'A warm, homely place to live, with help with daily living, home-cooked meals from our own kitchen and garden, and a caring team who get to know every resident.',
   },
   {
-    id: 'dementia',
-    Icon: LuHeartHandshake,
-    title: 'Dementia Care',
-    text: 'Patient, person-centred care for people living with dementia, in calm and safe surroundings with a familiar daily routine and plenty of time outdoors.',
+    id: 'long-stays',
+    Icon: LuCalendarHeart,
+    title: 'Long Stays',
+    text: 'Stay with us for weeks or months – a comfortable room, fresh home-cooked meals and a friendly team, so you can settle in and live at your own pace.',
   },
   {
     id: 'respite',
@@ -21,9 +21,9 @@ export const careServices = [
     text: 'Short stays that give family carers a well-earned break, knowing their loved one is comfortable, safe and well looked after.',
   },
   {
-    id: 'ayurveda',
-    Icon: LuLeaf,
-    title: 'Ayurvedic Medicine',
-    text: 'Traditional Ayurvedic treatment under consultant care – prescribed and supervised by a qualified Ayurvedic consultant, alongside each resident’s regular care.',
+    id: 'garden',
+    Icon: LuTreePalm,
+    title: 'Peace & Garden Space',
+    text: 'Four acres of tropical garden to wander, sit in the shade or watch the birds – a quiet, relaxing place to unwind every day.',
   },
 ]

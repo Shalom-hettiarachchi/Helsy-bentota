@@ -17,8 +17,8 @@ export const externalProps = { target: '_blank', rel: 'noopener noreferrer' }
 
 export const helsy = {
   name: 'The Helsy Bentota',
-  phone: '(+94) 77 690 9169',
-  phoneHref: 'tel:+94776909169',
+  phone: '(+94) 77 220 7705',
+  phoneHref: 'tel:+94772207705',
   email: 'helsyofbentota@gmail.com',
   emails: ['helsyofbentota@gmail.com', 'pgrahamlanka@yahoo.com'],
   address: '2km Post, Circular road, Kommalta, Bentota 80500',
@@ -35,9 +35,9 @@ export const helsy = {
 
 export const petes = {
   name: "Pete's Meats",
-  phone: '(+94) 77 631 7411',
-  phoneHref: 'tel:+94776317411',
-  whatsapp: 'https://wa.me/94776317411',
+  phone: '(+94) 77 220 7705',
+  phoneHref: 'tel:+94772207705',
+  whatsapp: 'https://wa.me/94772207705',
   email: 'pgrahamlanka@yahoo.com',
   address: 'Helsy Eco Farm, 2km Post, Raja Mw, Kommalta, Bentota',
   hours: '08.00 am - 09.00 pm',
@@ -73,7 +73,7 @@ export const footerNav = [
   { href: petesSiteUrl, label: 'Shop Online', external: true },
 ]
 
-// "+94 77 690 9169" -> "tel:+94776909169"
+// "+94 77 220 7705" -> "tel:+94772207705"
 export function telHref(phone = '') {
   const digits = phone.replace(/[^\d+]/g, '')
   return digits ? `tel:${digits}` : helsy.phoneHref

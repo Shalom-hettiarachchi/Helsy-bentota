@@ -43,7 +43,7 @@ export default function PetesHeader() {
         <div className={styles.headerActions}>
           <a href={petes.phoneHref} className={styles.phone}>
             <FiPhone aria-hidden="true" />
-            <span>[+94] 77 631 7411</span>
+            <span>[+94] 77 220 7705</span>
           </a>
           <a href={petes.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className={styles.iconLink}>
             <FaFacebookF />
