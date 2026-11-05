@@ -550,7 +550,7 @@ function action_message_delete(array $in, array $admin): array
 ------------------------------------------------------------------- */
 function action_settings(array $in, array $admin): array
 {
-    $s = get_settings() + array_fill_keys([...array_keys(BANK_FIELDS), 'bankNote'], '') + ['paymentDueDays' => 14];
+    $s = get_settings() + array_fill_keys([...array_keys(BANK_FIELDS), 'bankNote'], '') + ['paymentDueDays' => 14, 'offerCardPayments' => false];
     unset($s['bankDetails']); // replaced by the separate bank fields
     unset($s['schema_version']);
     // Read-only: whether card payments are switched on in helsy-config.php
@@ -594,6 +594,7 @@ function action_settings_save(array $in, array $admin): array
         'bankSwift' => strtoupper(v_str($s, 'bankSwift', 'the SWIFT code', 11, false)),
         'bankNote' => v_str($s, 'bankNote', 'the note for guests', 600, false),
         'paymentDueDays' => v_int($s, 'paymentDueDays', 'days before arrival', 0, 90, 14),
+        'offerCardPayments' => v_bool($s, 'offerCardPayments'),
     ];
     foreach ($clean as $k => $v) set_setting($k, $v);
     return action_settings([], $admin);
