@@ -13,7 +13,7 @@ export default function TermsPage() {
   return (
     <LegalPage
       title="Terms & Conditions"
-      updated="30 October 2026"
+      updated="5 November 2026"
       intro="These terms apply when you book a stay, care services or a table with The Helsy Bentota, or use this website."
     >
       <h2>Who we are</h2>
@@ -38,7 +38,7 @@ export default function TermsPage() {
           <Link href="/cancellation-policy">Cancellation &amp; Refund Policy</Link>.
         </li>
         <li>
-          Card payments are handled securely by PayHere. We never see or store your card details. Meals, drinks and extras during your stay are paid
+          Payment is made by bank transfer to the account given in your confirmation email. Meals, drinks and extras during your stay are paid
           separately.
         </li>
       </ul>

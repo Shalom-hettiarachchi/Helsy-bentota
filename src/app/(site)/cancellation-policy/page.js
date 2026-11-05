@@ -13,16 +13,20 @@ export default function CancellationPolicyPage() {
   return (
     <LegalPage
       title="Cancellation & Refund Policy"
-      updated="30 October 2026"
+      updated="5 November 2026"
       intro="Plans change – here is how payments, cancellations and refunds work for stays at The Helsy Bentota."
     >
       <h2>Booking and payment</h2>
       <p>
         A booking made on our website is a <b>request</b> until we confirm it by email. Nothing is charged when you send a request. Once your stay is
-        confirmed, we email you a secure link to pay by card (through PayHere) or the details to pay by bank transfer.
+        confirmed, we email you our bank details so you can pay by bank transfer, using your booking reference as the payment reference.
       </p>
       <ul>
         <li>Payment of the full amount is due <b>14 days before your arrival</b>.</li>
+        <li>
+          If you pay from abroad, please send the full amount in Sri Lankan rupees (LKR). Any bank charges are paid by the sender. We recommend{' '}
+          <a href="https://wise.com/" target="_blank" rel="noopener noreferrer">Wise</a>, which is usually cheaper than a bank transfer.
+        </li>
         <li>For bookings made less than 14 days before arrival, payment is due within <b>2 days</b> of confirmation.</li>
         <li>If payment has not been received by the due date, we may cancel the booking and release the dates – we will always contact you first.</li>
       </ul>
@@ -68,8 +72,7 @@ export default function CancellationPolicyPage() {
 
       <h2>How refunds are paid</h2>
       <ul>
-        <li>Card payments are refunded to the same card through PayHere. Banks usually take 7 to 14 working days to show it.</li>
-        <li>Bank transfers are refunded to the account you paid from. Any charges made by your bank are not covered.</li>
+        <li>Refunds are paid by bank transfer to the account you paid from. Any charges made by your bank are not covered.</li>
         <li>Refunds are made in Sri Lankan rupees (LKR), the currency of your booking; the amount in your own currency may differ slightly because of exchange rates.</li>
       </ul>
 
