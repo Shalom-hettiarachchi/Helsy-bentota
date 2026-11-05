@@ -114,16 +114,14 @@ function GeneralSettings() {
 
       <fieldset className={styles.fieldset}>
         <legend>Payments</legend>
-        <p className={styles.muted}>
-          Card payments (PayHere):{' '}
-          <strong>
-            {settings.cardPayments === 'live'
-              ? 'On'
-              : settings.cardPayments === 'sandbox'
-                ? 'On – sandbox test mode (no real money)'
-                : 'Off – add the PayHere keys to helsy-config.php to switch them on'}
-          </strong>
-        </p>
+        {settings.cardPayments === 'off' ? (
+          <p className={styles.muted}>Card payments (PayHere): Off – add the PayHere keys to helsy-config.php to make them available.</p>
+        ) : (
+          <label className="checkbox">
+            <input type="checkbox" checked={!!f.offerCardPayments} onChange={(e) => setF({ ...f, offerCardPayments: e.target.checked })} />
+            Offer “Pay by card” (PayHere{settings.cardPayments === 'sandbox' ? ' – sandbox test mode, no real money' : ''})
+          </label>
+        )}
         <p className={styles.muted}>
           Bank transfer details are sent only to guests with a confirmed booking. Leave the account number empty to hide bank transfer.
         </p>

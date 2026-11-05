@@ -36,7 +36,7 @@ if ($method === 'GET') {
             'paymentMethod' => $b['paymentMethod'],
             'due' => $due,
         ],
-        'card' => $canPay && payhere_enabled(),
+        'card' => $canPay && card_payments_offered(),
         'sandbox' => payhere_enabled() && (bool)payhere_config()['sandbox'],
         // Bank details only go to guests whose booking is confirmed
         'bankDetails' => $canPay ? $payments['bankDetails'] : '',
@@ -47,7 +47,7 @@ if ($method === 'GET') {
 // POST: start a card payment
 if (($_GET['action'] ?? '') !== 'checkout') fail('Unknown action.', 404);
 throttle_or_fail('checkout:' . client_ip(), 15, 900);
-if (!payhere_enabled()) fail('Card payments are not available yet. Please pay by bank transfer.', 409);
+if (!card_payments_offered()) fail('Card payments are not available. Please pay by bank transfer.', 409);
 if (is_paid($b)) fail('This booking is already paid – thank you!', 409);
 if (!$canPay) fail('This booking can\'t be paid online. Please contact us.', 409);
 

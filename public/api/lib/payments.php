@@ -19,6 +19,13 @@ function payhere_enabled(): bool
     return trim((string)$c['merchant_id']) !== '' && trim((string)$c['merchant_secret']) !== '';
 }
 
+// Whether guests are offered "Pay by card": needs the PayHere keys and the
+// switch in Settings. Payments already started still complete when it's off.
+function card_payments_offered(): bool
+{
+    return payhere_enabled() && !empty(get_settings()['offerCardPayments']);
+}
+
 function payhere_checkout_url(): string
 {
     return payhere_config()['sandbox'] ? 'https://sandbox.payhere.lk/pay/checkout' : 'https://www.payhere.lk/pay/checkout';
@@ -141,7 +148,7 @@ function payment_email_html(array $b): string
 {
     if ($b['total'] <= 0 || is_paid($b)) return '';
     $p = payment_settings();
-    $card = payhere_enabled();
+    $card = card_payments_offered();
     if (!$card && $p['bankDetails'] === '') return '';
 
     $due = $b['paymentDue'] ?: payment_due_for($b['checkIn']);
