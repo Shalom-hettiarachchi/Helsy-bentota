@@ -58,6 +58,9 @@ const PAYHERE_STATUS = ['2' => 'success', '0' => 'pending', '-1' => 'cancelled',
 /* ------------------------------------------------------------------
    Payment details for a booking
 ------------------------------------------------------------------- */
+// Recommended to guests paying by bank transfer from abroad
+const WISE_URL = 'https://wise.com/';
+
 // The bank fields from Settings, with the label each gets in emails and on the payment page
 const BANK_FIELDS = [
     'bankAccountName' => 'Account name',
@@ -163,7 +166,9 @@ function payment_email_html(array $b): string
         $html .= '<p style="margin:0 0 4px">' . ($card ? 'Or pay by bank transfer:' : 'Please pay by bank transfer:') . '</p>'
             . '<p style="margin:0 0 10px;padding:10px 12px;background:#fff;border:1px solid #e6e2d6;border-radius:4px;font-family:Consolas,monospace;font-size:13px">'
             . nl2br(e($p['bankDetails'])) . '</p>'
-            . '<p style="margin:0 0 10px">Use <b>' . e($b['ref']) . '</b> as the payment reference.</p>';
+            . '<p style="margin:0 0 10px">Use <b>' . e($b['ref']) . '</b> as the payment reference.</p>'
+            . '<p style="margin:0 0 10px">Paying from abroad? We recommend <a href="' . WISE_URL . '" style="color:#7a5f1c">Wise</a> – '
+            . 'it\'s usually cheaper than a bank transfer, and you can send the exact LKR amount so the full payment reaches us.</p>';
     }
     return $html . '<p style="margin:0;font-size:13px;color:#777">Our bank details will never change by email. '
         . 'If you receive a message saying otherwise, please call us before paying.</p></div>';

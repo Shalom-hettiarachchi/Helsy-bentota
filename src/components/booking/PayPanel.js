@@ -185,6 +185,13 @@ export default function PayPanel() {
               <p>
                 Please use <strong>{b.ref}</strong> as the payment reference, so we can match your payment.
               </p>
+              <p>
+                Paying from abroad? We recommend{' '}
+                <a href="https://wise.com/" target="_blank" rel="noopener noreferrer">
+                  Wise
+                </a>{' '}
+                – it&apos;s usually cheaper than a bank transfer, and you can send the exact LKR amount so the full payment reaches us.
+              </p>
             </>
           )}
 

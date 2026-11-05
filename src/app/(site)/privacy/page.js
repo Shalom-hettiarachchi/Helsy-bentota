@@ -13,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <LegalPage
       title="Privacy Policy"
-      updated="30 October 2026"
+      updated="5 November 2026"
       intro="We only ask for the information we need to look after your booking, and we never sell it."
     >
       <h2>Who looks after your information</h2>
@@ -31,8 +31,7 @@ export default function PrivacyPage() {
           <b>Table reservations, care enquiries and contact messages:</b> your name, contact details and what you tell us.
         </li>
         <li>
-          <b>Payments:</b> whether and when you paid, the amount and the payment reference. Card payments are made on PayHere&apos;s secure page –
-          your card details go to PayHere and the card networks, never to us.
+          <b>Payments:</b> whether and when you paid, the amount and the payment reference.
         </li>
         <li>
           <b>Technical information:</b> your IP address is recorded with bookings and messages to protect the website against spam and misuse.
@@ -50,9 +49,6 @@ export default function PrivacyPage() {
 
       <h2>Who we share it with</h2>
       <ul>
-        <li>
-          <b>PayHere</b>, if you pay by card – to process the payment.
-        </li>
         <li>
           <b>Our website and email providers</b> (Hostinger, which hosts this website and its database, and Google, which delivers our emails) –
           only to run the service.
