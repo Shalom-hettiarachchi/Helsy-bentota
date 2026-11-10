@@ -100,5 +100,5 @@ function email_html(string $title, string $intro, array $rows = [], string $outr
         . $block
         . ($outro ?'<p style="margin:18px 0 0">' . $outro . '</p>' : '')
         . '</div><p style="font-size:12px;color:#999;text-align:center;margin-top:16px">'
-        . 'The Helsy Bentota · 2km Post, Circular Road, Kommalta, Bentota 80500, Sri Lanka</p></div></body></html>';
+        . 'The Helsy Bentota · 2km Post, Circular Road, Kommala, Bentota 80500, Sri Lanka</p></div></body></html>';
 }
