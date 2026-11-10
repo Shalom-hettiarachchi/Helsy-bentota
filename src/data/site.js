@@ -21,7 +21,7 @@ export const helsy = {
   phoneHref: 'tel:+94772207705',
   email: 'helsyofbentota@gmail.com',
   emails: ['helsyofbentota@gmail.com', 'pgrahamlanka@yahoo.com'],
-  address: '2km Post, Circular road, Kommalta, Bentota 80500',
+  address: '2km Post, Circular road, Kommala, Bentota 80500',
   hours: '08.00 am - 09.00 pm',
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=The+Helsy+Bentota',
   bookingUrl: 'https://www.booking.com/hotel/lk/the-helsy-bentota-bentota1.en-gb.html',
@@ -39,7 +39,7 @@ export const petes = {
   phoneHref: 'tel:+94772207705',
   whatsapp: 'https://wa.me/94772207705',
   email: 'pgrahamlanka@yahoo.com',
-  address: 'Helsy Eco Farm, 2km Post, Raja Mw, Kommalta, Bentota',
+  address: 'Helsy Eco Farm, 2km Post, Raja Mw, Kommala, Bentota',
   hours: '08.00 am - 09.00 pm',
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=The+Helsy+Bentota',
   social: {

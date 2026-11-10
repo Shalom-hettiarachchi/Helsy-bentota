@@ -73,7 +73,7 @@ const jsonLd = {
   })),
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '2km Post, Circular road, Kommalta',
+    streetAddress: '2km Post, Circular road, Kommala',
     addressLocality: 'Bentota',
     postalCode: '80500',
     addressRegion: 'Southern Province',
@@ -127,7 +127,7 @@ export default function HomePage() {
             </li>
             <li>Breakfast included</li>
             <li>
-              <FiMapPin aria-hidden="true" /> Kommalta, Bentota
+              <FiMapPin aria-hidden="true" /> Kommala, Bentota
             </li>
           </ul>
           <div className={`btn-row ${styles.heroActions}`}>
